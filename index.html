@@ -1,0 +1,3734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oceanverse: The Shore, Into the Blue, The Coral Garden, and The Jellyfish Kingdom</title>
+  
+  <!-- Poetic Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-sky-top: #7bc4e8;
+      --color-sky-mid: #b8e7f5;
+      --color-sea-turquoise: #5fc4d4;
+      --color-sea-foam: #c1f2ea;
+      --color-sand-wet: #ecd7ba;
+      --color-sand-dry: #fcf1e0;
+      
+      --color-underwater-top: #0e80b6;
+      --color-underwater-mid: #36b7db;
+      --color-underwater-deep: #167eae;
+      --color-underwater-abyss: #073a70;
+
+      --color-coral-top: #073a70;
+      --color-coral-mid: #145e82;
+      --color-coral-bottom: #2b7d9b;
+      --color-seabed-dune: #a3c9c7;
+      --color-seabed-sand: #d8e5df;
+
+      --color-jelly-top: #080f30;
+      --color-jelly-mid: #10234e;
+      --color-jelly-light: #284c83;
+      
+      --color-text-shore: #123e5e;
+      --color-text-muted: #2d6085;
+      --color-text-underwater: #f2fbff;
+      
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', -apple-system, sans-serif;
+      
+      --radius-pill: 9999px;
+      --radius-glass: 28px;
+      --radius-dialog: 24px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      width: 100%;
+      background: var(--color-sky-top);
+      color: var(--color-text-shore);
+      font-family: var(--font-serif);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      outline: none;
+    }
+
+    button:focus-visible, a:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 4px;
+    }
+
+    /* Fixed Seamless Watercolor Texture Canvas Overlay */
+    .viewport-grain {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.32;
+      mix-blend-mode: soft-light;
+      background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.7) 0%, rgba(240,248,255,0.2) 100%);
+      filter: contrast(115%);
+    }
+
+    /* Fixed Header Navigation with Dynamic Color Adaptability */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 22px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.6s ease;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, transparent 100%);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-shadow: 0 1px 8px rgba(255, 255, 255, 0.6);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      padding: 9px 18px;
+      min-height: 44px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 2px 12px rgba(18, 62, 94, 0.06);
+      transition: all 0.3s ease;
+      color: inherit;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.85);
+      transform: translateY(-1px);
+    }
+
+    /* Fixed HUD: Dynamic Depth & Collection Counter */
+    .hud-depth {
+      position: fixed;
+      bottom: 24px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      pointer-events: none;
+      z-index: 90;
+      transition: color 0.6s ease;
+    }
+
+    #count {
+      position: fixed;
+      bottom: 22px;
+      right: 5%;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      z-index: 90;
+      background: rgba(245, 252, 255, 0.75);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius-pill);
+      padding: 7px 16px;
+      box-shadow: 0 2px 12px rgba(18, 62, 94, 0.08);
+      transition: all 0.6s ease;
+    }
+
+    /* Section Chapters Wrapper */
+    main {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    /* CHAPTER I: THE SHORE */
+    #world {
+      position: relative;
+      min-height: 100svh;
+      width: 100%;
+      overflow: hidden;
+      isolation: isolate;
+      background: linear-gradient(
+        180deg,
+        var(--color-sky-top) 0%,
+        var(--color-sky-mid) 34%,
+        #3ba3d1 37.8%,
+        var(--color-sea-turquoise) 55%,
+        var(--color-sea-foam) 72%,
+        #eef9f6 74.2%,
+        var(--color-sand-wet) 78%,
+        var(--color-sand-dry) 100%
+      );
+    }
+
+    /* Sky & Organic Watercolor Clouds */
+    #sky {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 38%;
+      pointer-events: none;
+      z-index: 2;
+      will-change: transform;
+    }
+
+    .cloud {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.4) 65%, transparent 100%);
+      filter: blur(16px);
+      will-change: transform;
+    }
+
+    .cloud.one {
+      width: 38%;
+      height: 45%;
+      left: -4%;
+      top: 8%;
+      animation: cloudSway 24s ease-in-out infinite alternate;
+    }
+
+    .cloud.two {
+      width: 42%;
+      height: 48%;
+      right: -6%;
+      top: 3%;
+      animation: cloudSway 30s ease-in-out infinite alternate-reverse;
+    }
+
+    /* Water Tide Waves & Sparkles */
+    .water {
+      position: absolute;
+      top: 36.5%;
+      left: -5%;
+      width: 110%;
+      height: 42%;
+      pointer-events: none;
+      z-index: 3;
+      animation: wave 8s ease-in-out infinite alternate;
+    }
+
+    #sparkles {
+      position: absolute;
+      inset: 38% 0 24%;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .spark {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.95);
+      animation: shine 3.6s infinite ease-in-out;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+      user-select: none;
+    }
+
+    /* Shore Hero Content */
+    .hero {
+      position: absolute;
+      top: 20%;
+      width: 100%;
+      text-align: center;
+      padding: 0 20px;
+      z-index: 5;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-weight: 300;
+      font-size: clamp(48px, 9.5vw, 116px);
+      letter-spacing: 0.06em;
+      line-height: 1.05;
+      margin: 6px 0;
+    }
+
+    .tagline {
+      font-style: italic;
+      font-size: clamp(16px, 2.2vw, 24px);
+      color: var(--color-text-muted);
+    }
+
+    /* Pearl Glassmorphism Journey Button */
+    .glass {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.88) 0%,
+        rgba(255, 255, 255, 0.55) 45%,
+        rgba(235, 250, 255, 0.75) 100%
+      );
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-pill);
+      padding: 16px 36px;
+      min-height: 48px;
+      box-shadow: 
+        0 6px 24px rgba(18, 62, 94, 0.12),
+        inset 0 1px 2px rgba(255, 255, 255, 1);
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--color-text-shore);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .glass:hover {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.96) 0%,
+        rgba(255, 255, 255, 0.72) 50%,
+        rgba(242, 253, 255, 0.88) 100%
+      );
+      box-shadow: 
+        0 10px 32px rgba(18, 62, 94, 0.16),
+        0 0 20px rgba(255, 255, 255, 0.8);
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    #dive {
+      position: absolute;
+      top: 56%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    #dive:hover {
+      transform: translate(-50%, -2px) scale(1.02);
+    }
+
+    /* Shore Interactive Shells */
+    #shore {
+      position: absolute;
+      inset: 74% 0 0;
+      z-index: 10;
+    }
+
+    .shell {
+      position: absolute;
+      width: clamp(52px, 7vw, 92px);
+      min-height: 48px;
+      height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease, filter 0.3s ease;
+    }
+
+    .shell:hover {
+      transform: translateY(-4px) scale(1.08) !important;
+      filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.95)) drop-shadow(0 6px 12px rgba(18, 62, 94, 0.18));
+    }
+
+    .shell:nth-child(1) { left: 9%; top: 6%; transform: rotate(-16deg); }
+    .shell:nth-child(2) { right: 11%; top: 12%; transform: rotate(14deg); }
+    .shell:nth-child(3) { left: 29%; top: 38%; transform: rotate(6deg); }
+
+    /* CONTINUOUS TRANSITION: THE DESCENT */
+    #descent {
+      height: 85svh;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        180deg,
+        #fce6c8 0%,
+        #c9f4ed 15%,
+        #78d6e7 32%,
+        #319fce 52%,
+        #0e80b6 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .surface {
+      position: absolute;
+      top: 22%;
+      width: 110%;
+      left: -5%;
+      height: 20%;
+      background: repeating-linear-gradient(175deg, transparent 0 15px, rgba(255,255,255,0.55) 17px, transparent 20px 36px);
+      filter: blur(1.5px);
+      animation: wave 7s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .transition-text {
+      position: relative;
+      text-align: center;
+      color: #ffffff;
+      font-style: italic;
+      font-size: clamp(20px, 3vw, 28px);
+      letter-spacing: 1px;
+      text-shadow: 0 2px 16px rgba(14, 128, 182, 0.7);
+      padding: 0 24px;
+      z-index: 5;
+    }
+
+    /* CHAPTER II: INTO THE BLUE */
+    .blue {
+      min-height: 110svh;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      color: var(--color-text-underwater);
+      background: linear-gradient(
+        180deg,
+        #0e80b6 0%,
+        #36b7db 24%,
+        #167eae 65%,
+        #073a70 100%
+      );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 80px;
+    }
+
+    .rays {
+      position: absolute;
+      inset: -30% -20% 0;
+      background: conic-gradient(
+        from 145deg at 48% 0%,
+        transparent 0deg,
+        rgba(234, 255, 255, 0.22) 7deg,
+        transparent 13deg,
+        rgba(234, 255, 255, 0.14) 20deg,
+        transparent 28deg,
+        rgba(234, 255, 255, 0.22) 37deg,
+        transparent 48deg
+      );
+      filter: blur(16px);
+      pointer-events: none;
+      transform-origin: 48% 0;
+      animation: rayShift 16s ease-in-out infinite alternate;
+    }
+
+    #particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: #eaffff;
+      pointer-events: none;
+      animation: shine 4s infinite ease-in-out;
+      box-shadow: 0 0 6px rgba(234, 255, 255, 0.8);
+    }
+
+    .fish-shift {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .fish {
+      position: absolute;
+      width: clamp(52px, 8vw, 110px);
+      border: 0;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      pointer-events: auto;
+      animation: swim 7s ease-in-out infinite;
+      transition: filter 0.3s ease, transform 0.3s ease;
+      filter: drop-shadow(0 2px 8px rgba(3, 36, 66, 0.35));
+    }
+
+    .fish:hover {
+      filter: drop-shadow(0 0 14px #ffffff) drop-shadow(0 4px 10px rgba(3, 36, 66, 0.4));
+      transform: scale(1.1);
+    }
+
+    .fish svg {
+      width: 100%;
+      overflow: visible;
+    }
+
+    #bubbles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .bubble {
+      position: absolute;
+      pointer-events: auto;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      background: radial-gradient(
+        circle at 27% 20%,
+        rgba(255, 255, 255, 0.95),
+        transparent 20%,
+        rgba(255, 255, 255, 0.05) 60%,
+        rgba(255, 255, 255, 0.4) 100%
+      );
+      box-shadow: 
+        inset 0 0 8px rgba(255, 255, 255, 0.5),
+        0 0 12px rgba(255, 255, 255, 0.25);
+      animation: float 4.5s infinite ease-in-out;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      cursor: pointer;
+    }
+
+    .bubble:hover {
+      transform: scale(1.15) !important;
+      border-color: #ffffff;
+    }
+
+    .bubble.popped {
+      transform: scale(1.7) !important;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .blue .hero {
+      position: relative;
+      top: 0;
+      text-shadow: 0 2px 24px #075582;
+      z-index: 5;
+      margin-top: 10vh;
+      margin-bottom: 24px;
+    }
+
+    .blue .hero .eyebrow {
+      color: #bbf0ff;
+    }
+
+    .blue h2 {
+      font-weight: 300;
+      font-size: clamp(44px, 8vw, 96px);
+      letter-spacing: 0.04em;
+      margin: 10px 0;
+    }
+
+    .blue .tagline {
+      color: #e2f7fc;
+    }
+
+    .hint {
+      position: relative;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: #c4f1fd;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 5;
+      margin-bottom: 30px;
+    }
+
+    .pearl {
+      position: absolute;
+      left: 76%;
+      top: 72%;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      background: radial-gradient(circle at 28% 23%, #ffffff, #e4edf9 32%, #b7d7e7 62%, #7fa9cb 100%);
+      box-shadow: 0 0 24px rgba(232, 250, 255, 0.85);
+      animation: float 4s infinite ease-in-out;
+      z-index: 6;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+    }
+
+    .pearl:hover {
+      transform: scale(1.18);
+      box-shadow: 0 0 32px rgba(255, 255, 255, 1);
+    }
+
+    .cta-coral {
+      position: relative;
+      z-index: 6;
+      margin-top: 24px;
+      margin-bottom: 12px;
+      color: var(--color-text-shore);
+    }
+
+    /* CHAPTER III: THE CORAL GARDEN */
+    #cg {
+      min-height: 100svh;
+      height: 100svh;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: linear-gradient(
+        180deg,
+        var(--color-coral-top) 0%,
+        var(--color-coral-mid) 35%,
+        var(--color-coral-bottom) 68%,
+        #4da3ba 85%,
+        #9ec7c3 100%
+      );
+      color: #effaff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .cg-rays {
+      position: absolute;
+      inset: -30% -20% 0;
+      background: conic-gradient(
+        from 145deg at 48% 0%,
+        transparent 0deg,
+        rgba(234, 255, 255, 0.22) 7deg,
+        transparent 13deg,
+        rgba(234, 255, 255, 0.14) 20deg,
+        transparent 28deg,
+        rgba(234, 255, 255, 0.2) 37deg,
+        transparent 48deg
+      );
+      filter: blur(14px);
+      pointer-events: none;
+    }
+
+    #cg-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .cg-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: #ffffff;
+      animation: cg-light 4s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    /* Centered Content Block in Coral Garden */
+    .cg-center-group {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    .cg-hero {
+      position: relative;
+      text-align: center;
+      padding: 0 20px;
+      text-shadow: 0 2px 20px rgba(7, 58, 112, 0.8);
+      pointer-events: none;
+    }
+
+    .cg-hero .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: #bcecf8;
+      margin-bottom: 6px;
+    }
+
+    .cg-hero h2 {
+      font-weight: 300;
+      font-size: clamp(42px, 7.5vw, 92px);
+      letter-spacing: 0.04em;
+      margin: 8px 0;
+    }
+
+    .cg-hero .tagline {
+      font-style: italic;
+      font-size: clamp(16px, 2.2vw, 22px);
+      color: #e4f7fc;
+      margin-bottom: 22px;
+    }
+
+    #cg-feed {
+      position: relative;
+      z-index: 10;
+      margin-bottom: 14px;
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--color-text-shore);
+      padding: 13px 30px;
+      min-height: 46px;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.92) 0%,
+        rgba(235, 250, 255, 0.7) 100%
+      );
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 4px 20px rgba(7, 58, 112, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    #cg-feed:hover {
+      background: #ffffff;
+      box-shadow: 0 6px 26px rgba(7, 58, 112, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .food-pellet {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: #fce3b8;
+      border-radius: 50%;
+      animation: cg-food 1.4s forwards ease-out;
+      pointer-events: none;
+      z-index: 12;
+      box-shadow: 0 0 6px rgba(252, 227, 184, 0.8);
+    }
+
+    .cta-jelly {
+      position: relative;
+      z-index: 10;
+      color: var(--color-text-shore);
+    }
+
+    .cg-animal {
+      position: absolute;
+      border: 0;
+      background: none;
+      padding: 0;
+      cursor: pointer;
+      animation: cg-swim 7s ease-in-out infinite;
+      transition: filter 0.3s ease, transform 0.3s ease;
+      z-index: 8;
+    }
+
+    .cg-animal:hover {
+      filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.95)) drop-shadow(0 4px 12px rgba(7, 58, 112, 0.3));
+      transform: scale(1.08);
+    }
+
+    .cg-animal svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    #cg-turtle {
+      left: 8%;
+      top: 30%;
+      width: clamp(110px, 16vw, 175px);
+    }
+
+    #cg-fish {
+      right: 12%;
+      top: 34%;
+      width: clamp(80px, 11vw, 120px);
+    }
+
+    #cg-horse {
+      right: 12%;
+      bottom: 12%;
+      width: clamp(38px, 5vw, 55px);
+      opacity: 0.45;
+      transition: opacity 0.5s ease, filter 0.3s ease, transform 0.3s ease;
+      z-index: 8;
+    }
+
+    #cg-horse:hover {
+      opacity: 0.95;
+    }
+
+    .seabed-sand-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 38%;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .seabed-sand-svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .coral-seabed-stage {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 48%;
+      pointer-events: none;
+      z-index: 4;
+      overflow: hidden;
+    }
+
+    .coral-seabed-row {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .coral-item {
+      position: absolute;
+      transform-origin: bottom center;
+      will-change: transform;
+      filter: drop-shadow(0 4px 14px rgba(4, 34, 62, 0.3));
+      transition: filter 0.4s ease, transform 0.4s ease;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .coral-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .coral-item:hover {
+      filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) drop-shadow(0 6px 14px rgba(4, 34, 62, 0.45));
+      transform: translateY(-5px) scale(1.04) !important;
+    }
+
+    .coral-seabed-row.back {
+      z-index: 4;
+      opacity: 0.88;
+      filter: blur(0.5px) brightness(0.94);
+    }
+    .coral-seabed-row.back .coral-item {
+      bottom: 9%;
+      animation: coralSwayBack 7.5s ease-in-out infinite alternate;
+    }
+
+    .coral-seabed-row.front {
+      z-index: 6;
+      opacity: 1;
+    }
+    .coral-seabed-row.front .coral-item {
+      bottom: 1%;
+      animation: coralSwayFront 6s ease-in-out infinite alternate;
+    }
+
+    #cg-shell {
+      position: absolute;
+      left: 50%;
+      bottom: 4%;
+      transform: translateX(-50%);
+      width: clamp(76px, 10vw, 108px);
+      border: 0;
+      background: none;
+      cursor: pointer;
+      z-index: 8;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+    }
+
+    #cg-shell:hover {
+      transform: translateX(-50%) scale(1.12);
+      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.95));
+    }
+
+    .cta-jelly {
+      position: relative;
+      z-index: 10;
+      margin-top: 36px;
+      color: var(--color-text-shore);
+    }
+
+    /* ========================================================
+       CHAPTER IV: THE JELLYFISH KINGDOM (GRAB & GUIDE)
+       ======================================================== */
+    /* CHAPTER IV: THE JELLYFISH KINGDOM */
+    #jelly {
+      position: relative;
+      min-height: 100svh;
+      height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      color: #eef3ff;
+      background: 
+        radial-gradient(ellipse at 50% 50%, rgba(40, 76, 131, 0.65) 0%, transparent 70%),
+        linear-gradient(
+          180deg,
+          #073a70 0%,
+          #164b75 14%,
+          #10234e 48%,
+          #080f30 100%
+        );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    /* Centered Content Block in Jellyfish Kingdom */
+    .jelly-center-group {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    .jelly-hero {
+      position: relative;
+      text-align: center;
+      padding: 0 20px;
+      text-shadow: 0 0 28px rgba(141, 191, 255, 0.6);
+      pointer-events: none;
+    }
+
+    .jelly-hero .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: #9eccff;
+      margin-bottom: 6px;
+    }
+
+    .jelly-hero h2 {
+      font-weight: 300;
+      font-size: clamp(42px, 7.5vw, 92px);
+      letter-spacing: 0.04em;
+      margin: 8px 0;
+    }
+
+    .jelly-hero .tagline {
+      font-style: italic;
+      font-size: clamp(16px, 2.2vw, 22px);
+      color: #dbe7fc;
+      margin-bottom: 12px;
+    }
+
+    #jelly-creatures {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Grab & Guide Jellyfish Element */
+    .jelly-float {
+      position: absolute;
+      border: 0;
+      background: none;
+      padding: 0;
+      z-index: 6;
+      width: clamp(70px, 12vw, 150px);
+      animation: jfloat 8s ease-in-out infinite;
+      filter: drop-shadow(0 0 14px rgba(139, 220, 255, 0.45));
+      transition: filter 0.4s ease;
+      touch-action: none;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: auto;
+    }
+
+    .jelly-float svg {
+      width: 100%;
+      height: auto;
+      overflow: visible;
+      display: block;
+    }
+
+    /* Interactive Bioluminescence glow upon grab / touch */
+    .jelly-float:hover {
+      filter: drop-shadow(0 0 22px rgba(255, 202, 255, 0.8)) brightness(1.25);
+    }
+
+    .jelly-float.guided {
+      animation: none !important;
+      cursor: grabbing;
+      z-index: 25;
+      filter: drop-shadow(0 0 32px rgba(201, 223, 255, 0.95)) drop-shadow(0 0 16px rgba(255, 182, 228, 0.9)) brightness(1.5);
+    }
+
+    .jelly-float.guided .jelly-tentacle {
+      animation: none !important;
+      transform: skewX(var(--bend, 0deg));
+      transition: transform 0.15s ease-out;
+    }
+
+    .jelly-float.released {
+      animation: jfloat 8s ease-in-out infinite;
+      animation-delay: 0s;
+    }
+
+    .jelly-float.lit {
+      filter: drop-shadow(0 0 32px #ffcaff) brightness(1.6);
+    }
+
+    .jelly-tentacle {
+      transform-origin: 50% 0;
+      animation: jtent 4s ease-in-out infinite;
+    }
+
+    /* Glowing Bioluminescent Dust */
+    #jelly-dust {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .jelly-dust-particle {
+      position: absolute;
+      border-radius: 50%;
+      background: #c6eaff;
+      box-shadow: 0 0 10px #b7caff;
+      pointer-events: none;
+      animation: jfloat 9s ease-in-out infinite;
+    }
+
+    .jelly-trail {
+      position: absolute;
+      pointer-events: none;
+      color: #e5d8ff;
+      animation: jfade 1s forwards;
+      z-index: 20;
+      font-size: 16px;
+      text-shadow: 0 0 10px #c9dfff;
+    }
+
+    .jelly-hint {
+      position: relative;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: #b5ceff;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 10;
+      margin-top: 4px;
+      margin-bottom: 24px;
+    }
+
+    .return-surface-btn {
+      position: relative;
+      z-index: 10;
+      margin: 0;
+      color: var(--color-text-shore);
+    }
+
+    .cta-sanctuary {
+      position: relative;
+      z-index: 10;
+      color: var(--color-text-shore);
+    }
+
+    /* CHAPTER V: THE WHALE SANCTUARY (500 M) */
+    #sanctuary {
+      position: relative;
+      min-height: 100svh;
+      height: 100svh;
+      overflow: hidden;
+      isolation: isolate;
+      color: #e4f5ff;
+      background: 
+        radial-gradient(ellipse at 50% 25%, rgba(36, 75, 120, 0.55) 0%, transparent 70%),
+        radial-gradient(circle at 80% 80%, rgba(20, 50, 90, 0.4) 0%, transparent 50%),
+        linear-gradient(
+          180deg,
+          #080f30 0%,
+          #061332 20%,
+          #081c42 50%,
+          #050f24 85%,
+          #030715 100%
+        );
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .sanctuary-rays {
+      position: absolute;
+      inset: -20% -10% 0;
+      background: conic-gradient(
+        from 160deg at 50% 0%,
+        transparent 0deg,
+        rgba(150, 215, 255, 0.08) 8deg,
+        transparent 16deg,
+        rgba(150, 215, 255, 0.05) 24deg,
+        transparent 34deg
+      );
+      filter: blur(18px);
+      pointer-events: none;
+    }
+
+    .sanctuary-center-group {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 0 auto;
+      pointer-events: none;
+    }
+
+    .sanctuary-hero {
+      position: relative;
+      text-align: center;
+      padding: 0 20px;
+      text-shadow: 0 0 32px rgba(10, 35, 70, 0.95), 0 2px 14px rgba(0, 0, 0, 0.7);
+      pointer-events: none;
+    }
+
+    .sanctuary-hero .eyebrow {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 5px;
+      color: #8cd6f5;
+      margin-bottom: 6px;
+    }
+
+    .sanctuary-hero h2 {
+      font-weight: 300;
+      font-size: clamp(42px, 7.5vw, 92px);
+      letter-spacing: 0.04em;
+      margin: 8px 0;
+    }
+
+    .sanctuary-hero .tagline {
+      font-style: italic;
+      font-size: clamp(16px, 2.2vw, 22px);
+      color: #cfe8fc;
+      margin-bottom: 12px;
+    }
+
+    .sanctuary-hint {
+      position: relative;
+      text-align: center;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      color: #9cd4f0;
+      opacity: 0.85;
+      pointer-events: none;
+      margin-bottom: 22px;
+    }
+
+    .sanctuary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      align-items: center;
+      margin-top: 4px;
+      pointer-events: auto;
+      z-index: 25;
+    }
+
+    .sanctuary-actions .glass {
+      pointer-events: auto;
+      z-index: 26;
+    }
+
+    /* Whale Creatures & Playful Whale Escape */
+    .whale-stage {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 15;
+      overflow: hidden;
+    }
+
+    .whale-body {
+      position: absolute;
+      left: 18%;
+      top: 40%;
+      width: clamp(280px, 44vw, 620px);
+      border: 0;
+      background: none;
+      padding: 0;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: auto;
+      z-index: 16;
+      transform-origin: 50% 50%;
+      filter: drop-shadow(0 12px 30px rgba(2, 10, 24, 0.7)) drop-shadow(0 0 20px rgba(135, 206, 250, 0.25));
+      transition: filter 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: left, top, transform;
+    }
+
+    .whale-body:hover {
+      filter: drop-shadow(0 14px 34px rgba(2, 10, 24, 0.85)) drop-shadow(0 0 36px rgba(180, 235, 255, 0.7));
+    }
+
+    .whale-body.swimming .whale-tail {
+      animation-duration: 2.0s !important;
+    }
+
+    .whale-calf {
+      position: absolute;
+      left: 13%;
+      top: 64%;
+      width: clamp(130px, 20vw, 250px);
+      border: 0;
+      background: none;
+      padding: 0;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: auto;
+      z-index: 17;
+      transform-origin: 50% 50%;
+      filter: drop-shadow(0 8px 20px rgba(2, 10, 24, 0.6)) drop-shadow(0 0 16px rgba(160, 230, 255, 0.3));
+      transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: left, top, transform;
+    }
+
+    .whale-calf:hover {
+      filter: drop-shadow(0 10px 24px rgba(2, 10, 24, 0.75)) drop-shadow(0 0 28px rgba(210, 245, 255, 0.8));
+    }
+
+    .whale-calf.swimming .whale-tail {
+      animation-duration: 1.2s !important;
+    }
+
+    .whale-body svg, .whale-calf svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .whale-tail {
+      transform-origin: 380px 125px;
+      animation: tail-wave 6s ease-in-out infinite alternate;
+    }
+
+    .whale-calf .whale-tail {
+      transform-origin: 380px 125px;
+      animation: tail-wave 4.8s ease-in-out infinite alternate;
+      animation-delay: -1.2s;
+    }
+
+    /* Playful Whale Bubbles & Bioluminescent Wake */
+    .whale-bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(160, 235, 255, 0.5) 55%, rgba(255, 255, 255, 0.15) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 10px rgba(160, 240, 255, 0.75);
+      pointer-events: none;
+      animation: whaleBubbleRise 1.4s forwards ease-out;
+      z-index: 14;
+    }
+
+    @keyframes whaleBubbleRise {
+      0% { transform: translate(0, 0) scale(0.6); opacity: 0.95; }
+      60% { opacity: 0.85; }
+      100% { transform: translate(var(--drift-x, 8px), -50px) scale(1.35); opacity: 0; }
+    }
+
+    .whale-wake {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(168, 245, 255, 0.9) 0%, rgba(85, 215, 255, 0.6) 50%, transparent 100%);
+      box-shadow: 0 0 14px rgba(100, 225, 255, 0.9);
+      pointer-events: none;
+      animation: whaleWakeFade 1.3s forwards ease-out;
+      z-index: 13;
+    }
+
+    @keyframes whaleWakeFade {
+      0% { transform: scale(1); opacity: 0.9; }
+      100% { transform: scale(0.2); opacity: 0; }
+    }
+
+    @keyframes tail-wave {
+      0% { transform: rotate(-6deg); }
+      100% { transform: rotate(7deg); }
+    }
+
+    /* Interactive Luminous Plankton */
+    #whale-dust {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 8;
+    }
+
+    .whale-dust {
+      position: absolute;
+      border: 0;
+      background: #c2f4ff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #70d8ff, 0 0 20px rgba(112, 216, 255, 0.6);
+      animation: whale-glimmer 4.5s infinite ease-in-out;
+      cursor: pointer;
+      pointer-events: auto;
+      transition: transform 0.3s ease, filter 0.3s ease, opacity 0.4s ease;
+      padding: 0;
+    }
+
+    .whale-dust:hover {
+      transform: scale(2.2);
+      filter: brightness(1.8) drop-shadow(0 0 10px #ffffff);
+    }
+
+    .whale-dust::after {
+      content: '';
+      position: absolute;
+      inset: -14px;
+    }
+
+    .sanctuary-trail {
+      position: absolute;
+      pointer-events: none;
+      color: #92ecfc;
+      animation: jfade 1.1s forwards;
+      z-index: 20;
+      font-size: 15px;
+      text-shadow: 0 0 10px #78dfff;
+    }
+
+    @keyframes whale-glimmer {
+      0%, 100% { opacity: 0.25; transform: scale(0.9); }
+      50% { opacity: 0.95; transform: scale(1.2); }
+    }
+
+    /* =========================================================
+       CHAPTER VI: THE LOST TREASURE (1,000 M BELOW)
+       ========================================================= */
+    #treasure {
+      position: relative;
+      isolation: isolate;
+      min-height: 850px;
+      height: 110svh;
+      overflow: hidden;
+      color: #f6e8c8;
+      background: radial-gradient(ellipse at 50% 70%, #21515a, transparent 55%),
+                  linear-gradient(#071b32, #080e22 65%, #122b35);
+    }
+
+    .treasure-brand {
+      position: absolute;
+      top: 24px;
+      left: 28px;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #effaff;
+      opacity: 0.85;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .treasure-keys-hud {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #effaff;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .ruins {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    #treasure .hero {
+      position: absolute;
+      top: 13%;
+      width: 100%;
+      text-align: center;
+      pointer-events: none;
+      z-index: 2;
+      padding: 0 16px;
+    }
+
+    #treasure .eyebrow {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #effaff;
+      opacity: 0.85;
+      margin-bottom: 8px;
+    }
+
+    #treasure h2 {
+      font-family: Georgia, serif;
+      font-size: clamp(38px, 7vw, 84px);
+      font-weight: 400;
+      margin: 10px 0 12px;
+      color: #effaff;
+      letter-spacing: 0.02em;
+    }
+
+    #treasure .tagline {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: clamp(14px, 2vw, 19px);
+      color: #effaff;
+      opacity: 0.92;
+    }
+
+    .treasure-key,
+    .treasure-rock,
+    .treasure-chest {
+      position: absolute;
+      border: 0;
+      background: none;
+      padding: 0;
+      z-index: 3;
+    }
+
+    .treasure-key {
+      width: 54px;
+      height: 54px;
+      color: #f4d18a;
+      filter: drop-shadow(0 0 8px #e8c47888);
+      cursor: pointer;
+      transition: transform 0.25s ease, filter 0.25s ease, opacity 0.3s ease;
+    }
+
+    .treasure-key:hover {
+      transform: scale(1.15);
+      filter: drop-shadow(0 0 14px #ffe4a0);
+    }
+
+    .treasure-key svg,
+    .treasure-rock svg,
+    .treasure-chest svg {
+      width: 100%;
+      display: block;
+    }
+
+    .treasure-rock {
+      width: clamp(80px, 15vw, 170px);
+      touch-action: none;
+      cursor: grab;
+      z-index: 4;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .treasure-rock:active {
+      cursor: grabbing;
+    }
+
+    .treasure-rock.moved {
+      transform: translate(-90px, 45px);
+      pointer-events: none;
+      opacity: 0.75;
+    }
+
+    .treasure-chest {
+      width: clamp(150px, 25vw, 260px);
+      left: 50%;
+      top: 57%;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 0 15px #d9a64a55);
+      cursor: pointer;
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .treasure-chest:hover {
+      transform: translateX(-50%) scale(1.04);
+      filter: drop-shadow(0 0 22px #d9a64a88);
+    }
+
+    .treasure-chest.rattle {
+      animation: chestRattle 0.55s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+
+    @keyframes chestRattle {
+      10%, 90% { transform: translate3d(calc(-50% - 2px), 0, 0) rotate(-1.5deg); }
+      20%, 80% { transform: translate3d(calc(-50% + 3px), 0, 0) rotate(2deg); }
+      30%, 50%, 70% { transform: translate3d(calc(-50% - 4px), 0, 0) rotate(-2deg); }
+      40%, 60% { transform: translate3d(calc(-50% + 4px), 0, 0) rotate(1.5deg); }
+    }
+
+    .treasure-status {
+      position: absolute;
+      top: 84%;
+      width: 100%;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: #effaff;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .treasure-end {
+      position: absolute;
+      bottom: 8%;
+      width: 100%;
+      text-align: center;
+      z-index: 5;
+    }
+
+    .treasure-end p {
+      font-family: Georgia, serif;
+      font-style: italic;
+      color: #f6e8c8;
+      font-size: 15px;
+      margin: 0 0 12px;
+    }
+
+    .treasure-end button {
+      color: #f6e8c8;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(244, 209, 138, 0.4);
+      border-radius: 30px;
+      padding: 10px 22px;
+      margin: 0 6px;
+      font-size: 12px;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: background 0.3s;
+    }
+
+    .treasure-end button:hover {
+      background: rgba(244, 209, 138, 0.2);
+      color: #ffffff;
+    }
+
+    .gold-spark {
+      position: absolute;
+      pointer-events: none;
+      color: #ffe4a0;
+      animation: goldburst 1.8s ease-out forwards;
+      z-index: 6;
+      font-size: 16px;
+      text-shadow: 0 0 8px #f4d18a;
+    }
+
+    @keyframes goldburst {
+      to { transform: translate(var(--dx), var(--dy)); opacity: 0; }
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: var(--radius-pill);
+      padding: 12px 28px;
+      box-shadow: 0 8px 30px rgba(18, 62, 94, 0.16);
+      z-index: 200;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--color-text-shore);
+      text-align: center;
+      max-width: 90vw;
+      transition: all 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    #toast[hidden] {
+      opacity: 0;
+      transform: translate(-50%, 15px);
+      pointer-events: none;
+      display: block !important;
+      visibility: hidden;
+    }
+
+    /* Sparkle Cursor Trail */
+    .trail {
+      position: fixed;
+      color: rgba(255, 255, 255, 0.95);
+      pointer-events: none;
+      animation: rise 1.2s forwards ease-out;
+      z-index: 150;
+      font-size: 15px;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      user-select: none;
+    }
+
+    /* Journal Modal Dialog */
+    dialog {
+      color: var(--color-text-shore);
+      width: min(480px, 92vw);
+      max-height: 84vh;
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius-dialog);
+      background: rgba(246, 252, 255, 0.95);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      padding: 30px 24px;
+      box-shadow: 0 20px 60px rgba(14, 52, 82, 0.28);
+      margin: auto;
+      z-index: 300;
+    }
+
+    dialog::backdrop {
+      background: rgba(12, 44, 70, 0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .dialog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 6px;
+    }
+
+    dialog h2 {
+      font-weight: 400;
+      font-size: 32px;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+    }
+
+    #close {
+      font-size: 24px;
+      line-height: 1;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s ease;
+    }
+
+    #close:hover {
+      background: rgba(18, 62, 94, 0.08);
+    }
+
+    .dialog-subtitle {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--color-text-muted);
+      margin-bottom: 22px;
+    }
+
+    .collection-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      max-height: 56vh;
+      padding-right: 4px;
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid rgba(169, 203, 216, 0.35);
+      padding-bottom: 12px;
+    }
+
+    .item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .item-art {
+      width: 58px;
+      height: 48px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .item-art svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .item-info strong {
+      font-size: 17px;
+      font-weight: 600;
+      display: block;
+    }
+
+    .item-info small {
+      display: block;
+      margin-top: 2px;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: var(--color-text-muted);
+    }
+
+    /* Keyframe Animations */
+    @keyframes cloudSway {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(28px); }
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: translate(-2%, 0) scaleY(1); }
+      50% { transform: translate(2%, 7px) scaleY(1.02); }
+    }
+
+    @keyframes shine {
+      0%, 100% { opacity: 0.15; transform: scale(0.7); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    @keyframes rise {
+      to { transform: translateY(-90px); opacity: 0; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+
+    @keyframes swim {
+      0%, 100% { transform: translateX(-18px) rotate(-3deg); }
+      50% { transform: translateX(24px) rotate(3deg); }
+    }
+
+    @keyframes rayShift {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(18px) rotate(3deg); }
+    }
+
+    @keyframes cg-swim {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(22px, -12px) rotate(3deg); }
+    }
+
+    @keyframes cg-light {
+      0%, 100% { opacity: 0.15; }
+      50% { opacity: 0.85; }
+    }
+
+    @keyframes cg-food {
+      to { transform: translate(70px, -70px); opacity: 0; }
+    }
+
+    @keyframes coralSwayBack {
+      0% { transform: rotate(-1.5deg); }
+      100% { transform: rotate(1.8deg); }
+    }
+
+    @keyframes coralSwayFront {
+      0% { transform: rotate(-2.5deg); }
+      100% { transform: rotate(2.8deg); }
+    }
+
+    @keyframes jfloat {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(12px, -24px) rotate(4deg); }
+    }
+
+    @keyframes jtent {
+      0%, 100% { transform: skewX(0deg); }
+      50% { transform: skewX(7deg); }
+    }
+
+    @keyframes jfade {
+      to { opacity: 0; transform: translateY(-25px); }
+    }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      html { scroll-behavior: auto; }
+      .trail, .jelly-trail, .sanctuary-trail, .gold-spark { display: none; }
+      .rays, .cg-rays, .sanctuary-rays { transform: none !important; }
+      .coral-item, .jelly-float, .whale-body, .whale-calf, .treasure-key, .treasure-chest { animation: none !important; }
+    }
+
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 480px) {
+      header { padding: 16px 5%; }
+      .brand { font-size: 11px; letter-spacing: 3px; }
+      .nav-btn { padding: 7px 12px; font-size: 10px; }
+      .hero { top: 22%; padding: 0 16px; }
+      #dive { top: 58%; padding: 12px 24px; font-size: 12px; }
+      #shore { inset: 74% 0 0; }
+      .shell { width: clamp(50px, 14vw, 68px); height: 68px; }
+      .shell:nth-child(1) { left: 6%; top: 4%; }
+      .shell:nth-child(2) { right: 8%; top: 12%; }
+      .shell:nth-child(3) { left: 28%; top: 38%; }
+      .hud-depth { bottom: 14px; font-size: 10px; }
+      #count { bottom: 12px; right: 4%; font-size: 11px; }
+      .blue .hero { margin-top: 6vh; }
+      .blue .hint, .jelly-hint, .sanctuary-hint { font-size: 10px; }
+      .pearl { left: 74%; top: 70%; width: 34px; height: 34px; }
+      #cg-turtle { width: 110px; left: 6%; top: 26%; }
+      #cg-fish { width: 80px; right: 8%; top: 30%; }
+      #cg-horse { width: 36px; right: 8%; bottom: 14%; }
+      #cg-shell { width: 68px; bottom: 3%; }
+      .coral-seabed-row.back { opacity: 0.65; }
+      .coral-item { max-width: 140px; }
+      .jelly-float { width: clamp(65px, 16vw, 110px); }
+      .whale-body { width: clamp(220px, 75vw, 320px); left: 10%; top: 34%; }
+      .whale-calf { width: clamp(100px, 34vw, 150px); left: 8%; top: 62%; }
+      .sanctuary-actions { flex-direction: column; gap: 8px; }
+      #treasure h2 { font-size: clamp(32px, 8vw, 54px); }
+      .treasure-rock { width: clamp(80px, 22vw, 120px); }
+      .treasure-chest { width: clamp(140px, 48vw, 200px); top: 58%; }
+      .treasure-status { top: 82%; font-size: 10px; }
+      .treasure-brand { top: 16px; left: 16px; font-size: 10px; }
+      .treasure-keys-hud { top: 16px; right: 16px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Grain Overlay -->
+  <div class="viewport-grain" aria-hidden="true"></div>
+
+  <!-- Persistent Header Navigation -->
+  <header id="mainHeader">
+    <span class="brand">OCEANVERSE</span>
+    <nav>
+      <button class="nav-btn" id="journal" aria-label="Open Ocean Journal">JOURNAL</button>
+      <button class="nav-btn" id="sound" aria-pressed="false" aria-label="Toggle sound atmosphere">♪ OFF</button>
+    </nav>
+  </header>
+
+  <!-- HUD Depth & Collection Counter -->
+  <div class="hud-depth" id="depth">THE SHORE: 00 M</div>
+  <div id="count" aria-live="polite">◉ 0 / 16</div>
+
+  <!-- Feedback Toast -->
+  <div id="toast" role="status" hidden></div>
+
+  <!-- Scroll-Driven Unified Ocean Universe -->
+  <main>
+    <!-- CHAPTER I: THE SHORE -->
+    <section id="world">
+      <div id="sky">
+        <div class="cloud one"></div>
+        <div class="cloud two"></div>
+      </div>
+
+      <svg class="water" viewBox="0 0 800 250" preserveAspectRatio="none" aria-hidden="true">
+        <g id="ripples" stroke="rgba(255,255,255,0.7)" fill="none"></g>
+        <path d="M0 220 Q70 207 140 220 T280 220 T420 220 T560 220 T700 220 T840 220 L840 240 Q770 229 700 240 T560 240 T420 240 T280 240 T140 240 T0 240Z" fill="rgba(255,255,255,0.85)"/>
+      </svg>
+
+      <div id="sparkles" aria-hidden="true"></div>
+
+      <div class="hero">
+        <div class="eyebrow">A WORLD OF WONDER</div>
+        <h1 id="title">Oceanverse</h1>
+        <div class="tagline">A little world beneath the waves.</div>
+      </div>
+
+      <button class="glass" id="dive" aria-label="Begin your journey beneath the waves">
+        <span>Begin Your Journey</span>
+        <span aria-hidden="true">↓</span>
+      </button>
+
+      <div id="shore">
+        <button class="shell" aria-label="Discover Rose Scallop"></button>
+        <button class="shell" aria-label="Discover Azure Scallop"></button>
+        <button class="shell" aria-label="Discover Little Pearl Shell"></button>
+      </div>
+    </section>
+
+    <!-- CONTINUOUS DESCENT TRANSITION -->
+    <section id="descent" aria-label="Descending beneath the waves">
+      <div class="surface"></div>
+      <div class="transition-text">Breathe. Let the ocean carry you.</div>
+    </section>
+
+    <!-- CHAPTER II: INTO THE BLUE -->
+    <section class="blue" id="blue" aria-labelledby="blue-title">
+      <div class="rays" id="rays"></div>
+      <div id="particles"></div>
+      <div class="fish-shift" id="fish"></div>
+      <div id="bubbles"></div>
+
+      <div class="hero">
+        <div class="eyebrow">CHAPTER II: 10 M BELOW</div>
+        <h2 id="blue-title">Into the Blue</h2>
+        <div class="tagline">Leave the world above behind.</div>
+      </div>
+
+      <div class="hint">TOUCH A BUBBLE: DISCOVER THE MAGIC</div>
+
+      <button class="pearl" id="pearl" aria-label="Collect hidden Ocean Pearl"></button>
+
+      <button class="glass cta-coral" id="gotoCoral" aria-label="Descend further into The Coral Garden">
+        <span>Descend to Coral Garden</span>
+        <span aria-hidden="true">↓</span>
+      </button>
+    </section>
+
+    <!-- CHAPTER III: THE CORAL GARDEN (ORGANIZED ON SEABED) -->
+    <section id="cg" aria-labelledby="cg-title">
+      <div class="cg-rays"></div>
+      <div id="cg-particles"></div>
+
+      <!-- Centered Hero & Interactive Buttons Group -->
+      <div class="cg-center-group">
+        <div class="cg-hero">
+          <div class="eyebrow">CHAPTER III: 30 M BELOW</div>
+          <h2 id="cg-title">The Coral Garden</h2>
+          <div class="tagline">Life blooms beneath the blue.</div>
+        </div>
+
+        <!-- Feed The Fish Interactive Control -->
+        <button class="glass" id="cg-feed" aria-label="Feed the coral fish">
+          Feed the fish: 0/3
+        </button>
+
+        <!-- Navigation to Chapter IV -->
+        <button class="glass cta-jelly" id="gotoJelly" aria-label="Descend into The Jellyfish Kingdom">
+          <span>Descend into The Kingdom</span>
+          <span aria-hidden="true">↓</span>
+        </button>
+      </div>
+
+      <!-- Animated Sea Turtle -->
+      <button id="cg-turtle" class="cg-animal" aria-label="Discover sea turtle">
+        <svg viewBox="0 0 160 100" aria-hidden="true">
+          <g fill="#a9d8d2" stroke="#e1f5ef" stroke-width="1.4">
+            <path d="M52 42Q13 0 8 20Q15 47 52 58M60 62Q20 90 45 94Q75 82 83 64M102 37Q133 8 145 25Q130 48 111 49M103 64Q139 92 144 77Q132 60 110 55"/>
+            <ellipse cx="80" cy="50" rx="43" ry="32" fill="#72a9ad"/>
+            <path d="M43 40L68 22 95 28 119 48 100 73 68 79 43 59 68 48 95 48 100 73M68 22L68 48 68 79M95 28L95 48" fill="none"/>
+            <ellipse cx="132" cy="49" rx="18" ry="12"/>
+            <circle cx="140" cy="45" r="2" fill="#245b80"/>
+          </g>
+        </svg>
+      </button>
+
+      <!-- Animated Coral Fish -->
+      <button id="cg-fish" class="cg-animal" aria-label="Discover coral fish">
+        <svg viewBox="0 0 120 65" aria-hidden="true">
+          <path d="M82 32L115 9 109 32 115 55Z" fill="#a8d9e8"/>
+          <path d="M8 32Q32 1 68 13Q83 18 94 32Q70 58 38 51Q20 47 8 32" fill="#b7e4ee" stroke="#e1f7fa"/>
+          <path d="M34 21Q43 32 34 43M49 18Q59 32 49 47M65 20Q75 32 65 44" fill="none" stroke="#72b2d0"/>
+          <circle cx="24" cy="29" r="3" fill="#245b80"/>
+        </svg>
+      </button>
+
+      <!-- Seabed Dunes Background -->
+      <div class="seabed-sand-container" aria-hidden="true">
+        <svg class="seabed-sand-svg" viewBox="0 0 1200 360" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="sandDeepShelf" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#3c8a9f" stop-opacity="0.85"/>
+              <stop offset="40%" stop-color="#5fa7b2" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#93c3bf" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="sandMidDune" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#7ebfb9" stop-opacity="0.9"/>
+              <stop offset="50%" stop-color="#a4d4cc" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#cae8df" stop-opacity="1"/>
+            </linearGradient>
+            <linearGradient id="sandFrontCrest" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#c1e7de" stop-opacity="0.95"/>
+              <stop offset="45%" stop-color="#d6f0e8" stop-opacity="0.98"/>
+              <stop offset="100%" stop-color="#ebfaf4" stop-opacity="1"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 160 Q180 125 380 155 T820 145 T1200 160 L1200 360 L0 360 Z" fill="url(#sandDeepShelf)"/>
+          <path d="M0 215 Q260 175 560 210 T1040 195 T1200 215 L1200 360 L0 360 Z" fill="url(#sandMidDune)"/>
+          <path d="M0 270 Q210 240 450 265 T920 255 T1200 270 L1200 360 L0 360 Z" fill="url(#sandFrontCrest)"/>
+        </svg>
+      </div>
+
+      <!-- Aligned Corals on Seabed Stage -->
+      <div class="coral-seabed-stage" id="coralEcosystem">
+        <div class="coral-seabed-row back" id="coralRowBack">
+          <div class="coral-item" style="left: 3%; width: clamp(125px, 14vw, 210px); animation-delay: -1.0s;">
+            <img src="assets/corals/coral-02.png" alt="Rose fan coral on sand dune" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 23%; width: clamp(130px, 15vw, 225px); animation-delay: -3.2s;">
+            <img src="assets/corals/coral-03.png" alt="Azure staghorn coral on sand dune" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 44%; width: clamp(110px, 12vw, 185px); animation-delay: -2.0s;">
+            <img src="assets/corals/coral-06.png" alt="Pink sea plume coral on sand dune" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 64%; width: clamp(125px, 14vw, 210px); animation-delay: -3.8s;">
+            <img src="assets/corals/coral-08.png" alt="Lilac branching coral on sand dune" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 83%; width: clamp(110px, 12vw, 180px); animation-delay: -1.5s;">
+            <img src="assets/corals/coral-04.png" alt="Finger coral on sand dune" loading="lazy">
+          </div>
+        </div>
+
+        <div class="coral-seabed-row front" id="coralRowFront">
+          <div class="coral-item" style="left: -1%; width: clamp(180px, 20vw, 305px); animation-delay: -0.4s;">
+            <img src="assets/corals/coral-05.png" alt="Majestic purple fan coral anchored on sand" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 17%; width: clamp(155px, 17vw, 260px); animation-delay: -2.4s;">
+            <img src="assets/corals/coral-01.png" alt="Pink azure branch coral anchored on sand" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 35%; width: clamp(150px, 16vw, 245px); animation-delay: -1.2s;">
+            <img src="assets/corals/coral-09.png" alt="Brain tube coral anchored on sand" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 60%; width: clamp(155px, 17vw, 260px); animation-delay: -3.0s;">
+            <img src="assets/corals/coral-07.png" alt="Aqua leafy coral anchored on sand" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 77%; width: clamp(165px, 18vw, 275px); animation-delay: -1.8s;">
+            <img src="assets/corals/coral-10.png" alt="Bushy pastel coral anchored on sand" loading="lazy">
+          </div>
+          <div class="coral-item" style="left: 92%; width: clamp(180px, 20vw, 305px); animation-delay: -0.8s;">
+            <img src="assets/corals/coral-11.png" alt="Vibrant branching sea coral anchored on sand" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <button id="cg-horse" class="cg-animal" aria-label="Discover hidden seahorse">
+        <svg viewBox="0 0 80 125" aria-hidden="true">
+          <path d="M48 12Q24 0 20 26L8 35 29 42Q17 61 37 80Q57 96 38 109Q22 114 24 99" fill="none" stroke="#e7c6c3" stroke-width="16" stroke-linecap="round"/>
+          <path d="M36 46Q65 50 43 75" fill="#b3d9e4"/>
+          <circle cx="29" cy="23" r="3" fill="#245b80"/>
+        </svg>
+      </button>
+
+      <button id="cg-shell" aria-label="Open pearl shell"></button>
+    </section>
+
+    <!-- CHAPTER IV: THE JELLYFISH KINGDOM -->
+    <section id="jelly" aria-labelledby="jelly-title">
+      <div id="jelly-dust"></div>
+
+      <!-- Centered Hero & Interactive Return Group -->
+      <div class="jelly-center-group">
+        <div class="jelly-hero">
+          <div class="eyebrow">CHAPTER IV: 200 M BELOW</div>
+          <h2 id="jelly-title">The Jellyfish Kingdom</h2>
+          <div class="tagline">Even in darkness, life finds a way to shine.</div>
+        </div>
+
+        <div class="jelly-hint">HOLD &amp; GUIDE THE JELLYFISH: RELEASE TO LET GO</div>
+
+        <!-- Navigation to Chapter V -->
+        <button class="glass cta-sanctuary" id="gotoSanctuary" aria-label="Descend to The Whale Sanctuary">
+          <span>Descend to The Sanctuary</span>
+          <span aria-hidden="true">↓</span>
+        </button>
+      </div>
+
+      <div id="jelly-creatures"></div>
+    </section>
+
+    <!-- CHAPTER V: THE WHALE SANCTUARY (500 M) -->
+    <section id="sanctuary" aria-labelledby="whale-title">
+      <div class="sanctuary-rays"></div>
+      <div id="whale-dust"></div>
+
+      <!-- Whale Creatures Stage -->
+      <div class="whale-stage">
+        <button id="motherWhale" class="whale-body" aria-label="Interact with blue whale"></button>
+        <button id="whaleCalf" class="whale-calf" aria-label="Discover whale calf"></button>
+      </div>
+
+      <!-- Centered Hero, Hint & Interactive Controls -->
+      <div class="sanctuary-center-group">
+        <div class="sanctuary-hero">
+          <div class="eyebrow">CHAPTER V: 500 M BELOW</div>
+          <h2 id="whale-title">The Whale Sanctuary</h2>
+          <div class="tagline">In the silence of the deep, giants dance.</div>
+        </div>
+
+        <div class="sanctuary-hint">TOUCH THE WHALE: WATCH IT GLIDE THROUGH THE DEEP</div>
+
+        <div class="sanctuary-actions">
+          <button class="glass" id="whaleCallBtn" aria-label="Listen to the whale song">
+            <span>Listen to the Whale</span>
+            <span aria-hidden="true">♪</span>
+          </button>
+          <button class="glass" id="gotoTreasure" aria-label="Descend to The Lost Treasure">
+            <span>Descend to The Lost Treasure</span>
+            <span aria-hidden="true">↓</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHAPTER VI: THE LOST TREASURE -->
+    <section id="treasure" aria-labelledby="treasureTitle">
+      <div class="treasure-brand">OCEANVERSE</div>
+      <div class="treasure-keys-hud" id="treasureKeysHud">KEYS · 0/3</div>
+
+      <!-- Ruins backdrop exactly matching user reference -->
+      <svg class="ruins" viewBox="0 0 1000 600" preserveAspectRatio="none" aria-hidden="true">
+        <g fill="#163743" stroke="#36555b" stroke-width="3">
+          <path d="M60 550V100H160V550M840 550V100H940V550M160 180Q500 -80 840 180L840 240Q500 0 160 240Z"/>
+          <path d="M0 550Q200 490 400 550T800 540T1000 550V600H0Z"/>
+        </g>
+        <g fill="none" stroke="#4d7d79" stroke-width="7" opacity=".7">
+          <path d="M100 590Q30 450 80 390M130 590Q210 470 160 420M880 590Q810 440 860 380M920 590Q990 450 950 400"/>
+        </g>
+      </svg>
+
+      <div class="hero">
+        <div class="eyebrow">CHAPTER VI · 1,000 M BELOW</div>
+        <h2 id="treasureTitle">The Lost Treasure</h2>
+        <div class="tagline">The greatest treasures are found by those who dare to explore.</div>
+      </div>
+
+      <div id="treasureObjects"></div>
+
+      <button class="treasure-chest" id="treasureChest" aria-label="Open treasure chest"></button>
+
+      <div class="treasure-status" id="treasureStatus" role="status">FIND THE THREE LOST KEYS</div>
+
+      <div class="treasure-end" id="treasureEnd" hidden>
+        <p>Ocean's Heart discovered. Your journey is complete.</p>
+        <button class="glass" id="treasureJournalBtn">Open Ocean Journal</button>
+        <button class="glass return-surface-btn" id="treasureHomeBtn">Return to The Shore ↑</button>
+      </div>
+
+      <div class="footer">THE LOST TREASURE · 1,000 M</div>
+    </section>
+  </main>
+
+  <!-- Unified Ocean Journal Modal -->
+  <dialog id="journalDialog" aria-labelledby="journalHeading">
+    <div class="dialog-header">
+      <h2 id="journalHeading">Ocean Journal</h2>
+      <button id="close" aria-label="Close journal">×</button>
+    </div>
+    <p class="dialog-subtitle">Treasures collected along the shoreline, open blue, coral garden, jellyfish kingdom, whale sanctuary, and sunken ruins.</p>
+    <div class="collection-list" id="collection"></div>
+  </dialog>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    const world = $('world');
+    const jelly = $('jelly');
+
+    // Persistence & State
+    let found = new Set();
+    let sound = false;
+    let audio, toastTimer;
+    let feeds = 0;
+
+    // Full 16 Item Catalog across All 6 Chapters
+    const names = [
+      'Rose Scallop',        // 0: Shore
+      'Azure Scallop',       // 1: Shore
+      'Little Pearl Shell',  // 2: Shore
+      'Ocean Pearl',         // 3: Into the Blue
+      'Silverfin Fish',      // 4: Into the Blue
+      'Sea Turtle',          // 5: Coral Garden
+      'Hidden Seahorse',     // 6: Coral Garden
+      'Garden Pearl',        // 7: Coral Garden
+      'Coral Fish',          // 8: Coral Garden
+      'Moon Jelly',          // 9: Jellyfish Kingdom
+      'Azure Jelly',         // 10: Jellyfish Kingdom
+      'Rose Jelly',          // 11: Jellyfish Kingdom
+      'Blue Whale',          // 12: Whale Sanctuary
+      'Whale Calf',          // 13: Whale Sanctuary
+      'Luminous Plankton',   // 14: Whale Sanctuary
+      "Ocean's Heart"        // 15: The Lost Treasure
+    ];
+
+    const locations = [
+      'The Shore',
+      'The Shore',
+      'The Shore',
+      'Into the Blue',
+      'Into the Blue',
+      'The Coral Garden',
+      'The Coral Garden',
+      'The Coral Garden',
+      'The Coral Garden',
+      'The Jellyfish Kingdom',
+      'The Jellyfish Kingdom',
+      'The Jellyfish Kingdom',
+      'The Whale Sanctuary',
+      'The Whale Sanctuary',
+      'The Whale Sanctuary',
+      'The Lost Treasure'
+    ];
+
+    const colors = ['#e5b1b3', '#87b9d6', '#e9d0b6', '#dceaf7', '#80c4df'];
+
+    // Load saved collection from localStorage (Supports 16 items across all 6 chapters)
+    try {
+      const saved = localStorage.getItem('oceanverse-v6') || localStorage.getItem('oceanverse-v5') || localStorage.getItem('oceanverse-v4') || '[]';
+      found = new Set(
+        JSON.parse(saved).filter(
+          i => Number.isInteger(i) && i >= 0 && i < names.length
+        )
+      );
+    } catch (e) {
+      console.warn('Storage notice:', e);
+    }
+
+    // Audio Synthesizer (Web Audio API)
+    function ping(type = 'bell') {
+      if (!sound) return;
+      try {
+        audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+        if (audio.state === 'suspended') audio.resume();
+
+        const t = audio.currentTime;
+        const o = audio.createOscillator();
+        const g = audio.createGain();
+
+        if (type === 'pop') {
+          o.type = 'sine';
+          o.frequency.setValueAtTime(440, t);
+          o.frequency.exponentialRampToValueAtTime(880, t + 0.07);
+          g.gain.setValueAtTime(0.07, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.09);
+        } else if (type === 'pearl') {
+          o.type = 'triangle';
+          o.frequency.setValueAtTime(523.25, t);
+          o.frequency.exponentialRampToValueAtTime(1046.5, t + 0.35);
+          g.gain.setValueAtTime(0.08, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.55);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.55);
+        } else if (type === 'feed') {
+          o.type = 'sine';
+          o.frequency.setValueAtTime(650, t);
+          o.frequency.exponentialRampToValueAtTime(980, t + 0.12);
+          g.gain.setValueAtTime(0.06, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.2);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.2);
+        } else if (type === 'jelly') {
+          // Ethereal bioluminescent chime
+          o.type = 'sine';
+          o.frequency.setValueAtTime(659.25, t); // E5
+          o.frequency.exponentialRampToValueAtTime(1318.5, t + 0.35); // E6
+          g.gain.setValueAtTime(0.07, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.5);
+        } else if (type === 'whale') {
+          // Haunting deep-ocean whale call with resonant harmonics
+          const o2 = audio.createOscillator();
+          const g2 = audio.createGain();
+          o.type = 'sine';
+          o2.type = 'triangle';
+
+          o.frequency.setValueAtTime(160, t);
+          o.frequency.exponentialRampToValueAtTime(56, t + 2.8);
+
+          o2.frequency.setValueAtTime(82, t);
+          o2.frequency.exponentialRampToValueAtTime(32, t + 2.8);
+
+          g.gain.setValueAtTime(0.001, t);
+          g.gain.linearRampToValueAtTime(0.12, t + 0.6);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 3.2);
+
+          g2.gain.setValueAtTime(0.001, t);
+          g2.gain.linearRampToValueAtTime(0.06, t + 0.5);
+          g2.gain.exponentialRampToValueAtTime(0.001, t + 3.0);
+
+          o.connect(g);
+          g.connect(audio.destination);
+          o2.connect(g2);
+          g2.connect(audio.destination);
+
+          o.start(t);
+          o2.start(t);
+          o.stop(t + 3.2);
+          o2.stop(t + 3.2);
+        } else if (type === 'sparkle') {
+          // Delicate bioluminescent plankton sparkle
+          o.type = 'sine';
+          o.frequency.setValueAtTime(1200, t);
+          o.frequency.exponentialRampToValueAtTime(2400, t + 0.15);
+          g.gain.setValueAtTime(0.05, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.25);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.25);
+        } else if (type === 'rock') {
+          // Low resonant scraping sound of ancient stone
+          o.type = 'sawtooth';
+          o.frequency.setValueAtTime(130, t);
+          o.frequency.exponentialRampToValueAtTime(65, t + 0.35);
+          g.gain.setValueAtTime(0.07, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.38);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.38);
+        } else if (type === 'key') {
+          // Antique metallic bell chime
+          o.type = 'sine';
+          o.frequency.setValueAtTime(987.77, t);
+          o.frequency.exponentialRampToValueAtTime(1975.53, t + 0.2);
+          g.gain.setValueAtTime(0.08, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.45);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.45);
+        } else if (type === 'treasure') {
+          // Majestic golden fanfare arpeggio (C5 -> E5 -> G5 -> C6)
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, idx) => {
+            const osc = audio.createOscillator();
+            const gain = audio.createGain();
+            const delay = t + idx * 0.12;
+            osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
+            osc.frequency.setValueAtTime(freq, delay);
+            gain.gain.setValueAtTime(0.001, delay);
+            gain.gain.linearRampToValueAtTime(0.08, delay + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, delay + 1.2);
+            osc.connect(gain);
+            gain.connect(audio.destination);
+            osc.start(delay);
+            osc.stop(delay + 1.2);
+          });
+        } else {
+          // Standard chime
+          o.type = 'sine';
+          o.frequency.setValueAtTime(780, t);
+          o.frequency.exponentialRampToValueAtTime(390, t + 0.18);
+          g.gain.setValueAtTime(0.06, t);
+          g.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+          o.connect(g);
+          g.connect(audio.destination);
+          o.start(t);
+          o.stop(t + 0.3);
+        }
+      } catch (e) {
+        console.warn('AudioContext notice:', e);
+      }
+    }
+
+    // Toast Feedback
+    function toast(t) {
+      const el = $('toast');
+      el.textContent = t;
+      el.hidden = false;
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.hidden = true;
+      }, 2300);
+    }
+
+    // Collect Artifact Action with Persistence
+    function collect(i) {
+      if (found.has(i)) {
+        toast('Already in your journal');
+        return;
+      }
+      found.add(i);
+      try {
+        localStorage.setItem('oceanverse-v6', JSON.stringify([...found]));
+      } catch (e) {}
+
+      $('count').textContent = `◉ ${found.size} / ${names.length}`;
+      toast(names[i] + ' discovered!');
+      journal();
+    }
+
+    // SVG Shell Generator (Shore)
+    function shell(c) {
+      return `<svg viewBox="0 0 80 65" width="100%" height="100%" aria-hidden="true">
+        <path d="M40 60 C22 53 1 38 5 24 Q5 9 20 14 Q27 0 40 9 Q53 0 60 14 Q75 9 75 24 C79 38 58 53 40 60Z" fill="${c}" stroke="${c}"/>
+        <path d="M40 58Q15 34 14 18M40 58Q27 29 27 11M40 58L40 9M40 58Q53 29 53 11M40 58Q65 34 66 18" stroke="#fff9" fill="none" stroke-width="2"/>
+      </svg>`;
+    }
+
+    // SVG Silverfin Fish Art
+    function fishArt() {
+      return `<svg viewBox="0 0 120 65" aria-hidden="true">
+        <path d="M82 32 Q105 12 115 9 L109 32 115 55 Q100 52 82 32" fill="#a8d9e8" opacity=".85"/>
+        <path d="M8 32 Q32 1 68 13 Q83 18 94 32 Q70 58 38 51 Q20 47 8 32" fill="#b7e4ee" stroke="#e1f7fa"/>
+        <path d="M39 15 Q55 0 67 13 M48 38 Q62 55 73 43" fill="#79bbd5" opacity=".8"/>
+        <path d="M34 21 Q43 32 34 43 M49 18 Q59 32 49 47 M65 20 Q75 32 65 44" fill="none" stroke="#72b2d0" opacity=".6"/>
+        <circle cx="24" cy="29" r="3" fill="#245b80"/>
+        <circle cx="23" cy="28" r="1" fill="white"/>
+      </svg>`;
+    }
+
+    // Coral Garden Pearl Shell SVG (Open/Closed state)
+    function cgShellSVG(open) {
+      return `<svg viewBox="0 0 100 90" width="100%" aria-hidden="true">
+        ${open ? '<path d="M50 65Q0 35 10 20Q25 0 50 15Q75 0 90 20Q100 35 50 65" fill="#a9d2e3" stroke="#e6f7ff"/><circle cx="50" cy="56" r="14" fill="#fff9ed" stroke="#ffffff" stroke-width="1.5"/>' : ''}
+        <path d="${open ? 'M50 85Q0 75 8 52Q25 43 50 61Q75 43 92 52Q100 75 50 85' : 'M50 85Q0 60 8 30Q25 5 50 20Q75 5 92 30Q100 60 50 85'}" fill="#d6b9c7" stroke="#f7e7ef"/>
+      </svg>`;
+    }
+
+    // Coral Garden Turtle Art
+    function turtleArt() {
+      return `<svg viewBox="0 0 160 100" aria-hidden="true">
+        <g fill="#a9d8d2" stroke="#e1f5ef" stroke-width="1.4">
+          <path d="M52 42Q13 0 8 20Q15 47 52 58M60 62Q20 90 45 94Q75 82 83 64M102 37Q133 8 145 25Q130 48 111 49M103 64Q139 92 144 77Q132 60 110 55"/>
+          <ellipse cx="80" cy="50" rx="43" ry="32" fill="#72a9ad"/>
+          <path d="M43 40L68 22 95 28 119 48 100 73 68 79 43 59 68 48 95 48 100 73M68 22L68 48 68 79M95 28L95 48" fill="none"/>
+          <ellipse cx="132" cy="49" rx="18" ry="12"/>
+          <circle cx="140" cy="45" r="2" fill="#245b80"/>
+        </g>
+      </svg>`;
+    }
+
+    // Coral Garden Seahorse Art
+    function seahorseArt() {
+      return `<svg viewBox="0 0 80 125" aria-hidden="true">
+        <path d="M48 12Q24 0 20 26L8 35 29 42Q17 61 37 80Q57 96 38 109Q22 114 24 99" fill="none" stroke="#e7c6c3" stroke-width="16" stroke-linecap="round"/>
+        <path d="M36 46Q65 50 43 75" fill="#b3d9e4"/>
+        <circle cx="29" cy="23" r="3" fill="#245b80"/>
+      </svg>`;
+    }
+
+    // Chapter IV Jellyfish SVG Art
+    function jellyArt(k) {
+      const c = ['#c4caff', '#76dfff', '#ffb6e4'][k % 3];
+      return `<svg viewBox="0 0 160 230" aria-hidden="true">
+        <path d="M14 84C13 15 145 0 146 84Q130 104 112 90Q94 111 80 91Q62 109 46 90Q25 104 14 84Z" fill="${c}" fill-opacity=".43" stroke="${c}" stroke-width="2"/>
+        <path d="M25 70Q45 24 80 27Q116 24 136 70M30 83Q80 105 130 83" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2"/>
+        <g class="jelly-tentacle" fill="none" stroke="${c}" stroke-linecap="round">
+          ${Array.from({length:7},(_,i)=>`<path d="M${30+i*16} 91q-18 24 0 48t0 48t0 ${12+i%3*8}" stroke-width="${i%2?2:3}" opacity="${.45+i%3*.2}"/>`).join('')}
+        </g>
+        <ellipse cx="57" cy="43" rx="16" ry="5" fill="white" opacity=".4"/>
+      </svg>`;
+    }
+
+    // Chapter V Whale SVG Art (Mother Whale & Whale Calf)
+    function whaleArt(isCalf = false) {
+      const idPrefix = isCalf ? 'calf_' : 'mother_';
+      const bodyColor = isCalf ? '#608fad' : '#4d759a';
+      const bodyGradStart = isCalf ? '#477497' : '#335b7f';
+      const bodyGradMid = isCalf ? '#6fa3c6' : '#5786ab';
+      const bodyGradEnd = isCalf ? '#446e91' : '#32597b';
+      const bellyGradStart = isCalf ? '#d0edf9' : '#b2d7eb';
+      const bellyGradEnd = isCalf ? '#eff9ff' : '#dcf1fa';
+      const strokeColor = isCalf ? '#caebf8' : '#a9d9f0';
+      const finColor = isCalf ? '#4d7798' : '#3b6284';
+      const grooveStroke = isCalf ? '#7ca8c8' : '#658fad';
+
+      return `<svg viewBox="0 0 520 230" aria-hidden="true">
+        <defs>
+          <linearGradient id="${idPrefix}bodyGrad" x1="0%" y1="20%" x2="100%" y2="80%">
+            <stop offset="0%" stop-color="${bodyGradStart}"/>
+            <stop offset="45%" stop-color="${bodyGradMid}"/>
+            <stop offset="85%" stop-color="${bodyGradEnd}"/>
+          </linearGradient>
+          <linearGradient id="${idPrefix}bellyGrad" x1="10%" y1="0%" x2="90%" y2="100%">
+            <stop offset="0%" stop-color="${bellyGradStart}"/>
+            <stop offset="100%" stop-color="${bellyGradEnd}"/>
+          </linearGradient>
+          <linearGradient id="${idPrefix}finGrad" x1="0%" y1="0%" x2="80%" y2="100%">
+            <stop offset="0%" stop-color="${finColor}"/>
+            <stop offset="100%" stop-color="${bodyGradMid}"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Tail Flukes (Animated with tail-wave) -->
+        <g class="whale-tail">
+          <path d="M380 115 Q435 96 450 62 Q478 38 515 54 Q498 84 462 108 Q495 118 518 152 Q480 166 445 138 L380 134 Z"
+                fill="${bodyColor}" stroke="${strokeColor}" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M430 112 Q460 85 495 65" fill="none" stroke="${strokeColor}" stroke-width="1.2" opacity="0.65"/>
+        </g>
+
+        <!-- Main Body Contour -->
+        <path d="M22 120 C20 48 126 32 232 72 Q324 90 410 115 L415 138 Q320 145 250 168 C116 206 40 158 22 120 Z"
+              fill="url(#${idPrefix}bodyGrad)" stroke="${strokeColor}" stroke-width="1.8"/>
+
+        <!-- Soft Underbelly -->
+        <path d="M24 128 Q115 164 250 142 Q325 128 402 128 Q322 154 252 168 C114 206 40 158 24 128 Z"
+              fill="url(#${idPrefix}bellyGrad)" opacity="0.95"/>
+
+        <!-- Ventral Throat Pleats / Grooves -->
+        <g fill="none" stroke="${grooveStroke}" stroke-width="1.5" stroke-linecap="round" opacity="0.8">
+          <path d="M50 144 Q110 178 208 162"/>
+          <path d="M56 153 Q120 186 208 170"/>
+          <path d="M72 162 Q132 190 192 176"/>
+        </g>
+
+        <!-- Dorsal Ridge / Watercolor Wash Highlight -->
+        <path d="M44 88 Q115 52 205 76 T360 108" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.32" stroke-linecap="round"/>
+
+        <!-- Dorsal Fin -->
+        <path d="M260 82 Q286 54 298 92 Z" fill="${bodyColor}" stroke="${strokeColor}" stroke-width="1.2"/>
+
+        <!-- Pectoral Flipper -->
+        <path d="M188 128 Q240 142 266 198 Q232 208 190 160 Z"
+              fill="url(#${idPrefix}finGrad)" stroke="${strokeColor}" stroke-width="1.6"/>
+        <path d="M196 136 Q234 150 256 194" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.5"/>
+
+        <!-- Mouthline & Expressive Eye -->
+        <path d="M48 126 Q72 136 100 131" fill="none" stroke="#223b52" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="90" cy="116" r="4.2" fill="#142c42"/>
+        <circle cx="91.5" cy="114.5" r="1.5" fill="#ffffff"/>
+      </svg>`;
+    }
+
+    // Render Journal Modal Items
+    function journal() {
+      $('collection').innerHTML = names.map((n, i) => {
+        let art;
+        if (i < 3) {
+          art = shell(colors[i]);
+        } else if (i === 3) {
+          art = '<span style="display:block;width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 25%,white,#a8c8de);box-shadow:0 0 12px rgba(255,255,255,0.7);border:1px solid #ffffffa0;"></span>';
+        } else if (i === 4) {
+          art = fishArt();
+        } else if (i === 5) {
+          art = turtleArt();
+        } else if (i === 6) {
+          art = seahorseArt();
+        } else if (i === 7) {
+          art = cgShellSVG(true);
+        } else if (i === 8) {
+          art = fishArt();
+        } else if (i >= 9 && i <= 11) {
+          art = jellyArt(i - 9);
+        } else if (i === 12) {
+          art = `<div style="width: 58px; height: 32px; display: flex; align-items: center; justify-content: center;">${whaleArt(false)}</div>`;
+        } else if (i === 13) {
+          art = `<div style="width: 48px; height: 26px; display: flex; align-items: center; justify-content: center;">${whaleArt(true)}</div>`;
+        } else if (i === 14) {
+          art = '<span style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffffff,#8ae2fb 45%,#1c688d 100%);box-shadow:0 0 14px rgba(138,226,251,0.85);color:#fff;font-size:16px;">✧</span>';
+        } else if (i === 15) {
+          // Ocean's Heart
+          art = '<span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fffdf2,#ffe89e 40%,#d4a23a 80%,#694314 100%);box-shadow:0 0 16px rgba(255,215,115,0.9);border:1px solid rgba(255,245,210,0.8);color:#53350b;font-size:18px;">❤</span>';
+        }
+        return `
+          <div class="item">
+            <div class="item-art" style="opacity: ${found.has(i) ? 1 : 0.2}">
+              ${art}
+            </div>
+            <div class="item-info">
+              <strong>${found.has(i) ? n : 'Undiscovered Treasure'}</strong>
+              <small>${found.has(i) ? `Discovered in ${locations[i]}` : `Explore ${locations[i]}`}</small>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Chapter VI SVG Art (matching reference oceanverse-v06.html)
+    const keyArt = '<svg viewBox="0 0 80 80" aria-hidden="true"><g fill="none" stroke="#f4d18a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><circle cx="23" cy="23" r="13"/><path d="M33 33L65 65M52 52L63 41M60 60L71 49"/></g></svg>';
+
+    const rockArt = '<svg viewBox="0 0 150 100" aria-hidden="true"><path d="M5 85L20 45 55 12 105 20 145 75 130 95 30 98Z" fill="#34525b" stroke="#6b8584" stroke-width="2"/><path d="M20 45L65 55 105 20M65 55L130 95" fill="none" stroke="#78908b" opacity=".6"/></svg>';
+
+    function chestArt(open) {
+      return `<svg viewBox="0 0 240 180" aria-hidden="true">${open ? '<path d="M25 88L12 20Q120 -12 228 20L215 88Z" fill="#60452f" stroke="#d8b477" stroke-width="5"/><ellipse cx="120" cy="91" rx="80" ry="25" fill="#f5d58b"/><circle cx="120" cy="73" r="26" fill="#fff4d8" stroke="#fff" stroke-width="3"/>' : '<path d="M20 88V55Q120 -5 220 55V88Z" fill="#795637" stroke="#d8b477" stroke-width="5"/>'}<rect x="20" y="88" width="200" height="75" rx="8" fill="#795637" stroke="#d8b477" stroke-width="5"/><path d="M48 88V163M192 88V163" stroke="#d8b477" stroke-width="12"/><rect x="105" y="90" width="30" height="35" rx="5" fill="#d8b477"/><circle cx="120" cy="105" r="5" fill="#493625"/></svg>`;
+    }
+
+    // Initialize Chapter I Shore Shells
+    world.querySelectorAll('.shell').forEach((b, i) => {
+      b.innerHTML = shell(colors[i]);
+      if (found.has(i)) b.style.opacity = '0.35';
+      b.onclick = () => {
+        ping();
+        collect(i);
+        b.style.opacity = '0.35';
+      };
+    });
+
+    $('count').textContent = `◉ ${found.size} / ${names.length}`;
+
+    // Populate Water Surface Ripples & Sparkles
+    const ripples = $('ripples');
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      const x = (i * 127) % 800;
+      const y = 7 + i * 7;
+      const w = 25 + y * 0.7;
+      p.setAttribute('d', `M${x} ${y}q${w / 4} -4 ${w / 2} 0t${w / 2} 0`);
+      p.setAttribute('stroke-width', (0.6 + i * 0.055).toFixed(2));
+      ripples.appendChild(p);
+    }
+
+    const sparkles = $('sparkles');
+    for (let i = 0; i < 50; i++) {
+      const s = document.createElement('span');
+      s.className = 'spark';
+      s.textContent = '✦';
+      s.style.cssText = `
+        left: ${(i * 37) % 100}%;
+        top: ${(i * 29) % 100}%;
+        font-size: ${5 + (i % 9)}px;
+        animation-duration: ${2.5 + (i % 4)}s;
+        animation-delay: -${(i * 0.39).toFixed(2)}s;
+      `;
+      sparkles.appendChild(s);
+    }
+
+    // Journal Modal Controls
+    const journalDialog = $('journalDialog');
+    $('journal').onclick = () => {
+      journal();
+      journalDialog.showModal();
+    };
+    $('close').onclick = () => journalDialog.close();
+    journalDialog.addEventListener('click', (e) => {
+      const rect = journalDialog.getBoundingClientRect();
+      if (
+        e.clientX < rect.left ||
+        e.clientX > rect.right ||
+        e.clientY < rect.top ||
+        e.clientY > rect.bottom
+      ) {
+        journalDialog.close();
+      }
+    });
+
+    // Sound Toggle
+    $('sound').onclick = () => {
+      sound = !sound;
+      $('sound').textContent = sound ? '♪ ON' : '♪ OFF';
+      $('sound').setAttribute('aria-pressed', String(sound));
+      ping();
+    };
+
+    // Smooth Scroll Navigation
+    $('dive').onclick = () => {
+      ping();
+      $('blue').scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    };
+
+    $('gotoCoral').onclick = () => {
+      ping();
+      $('cg').scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    };
+
+    $('gotoJelly').onclick = () => {
+      ping();
+      $('jelly').scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    };
+
+    $('gotoSanctuary').onclick = () => {
+      ping();
+      $('sanctuary').scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    };
+
+    $('gotoTreasure').onclick = () => {
+      ping();
+      $('treasure').scrollIntoView({
+        behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+      });
+    };
+
+    // Chapter II: Swimming Silverfin Fish
+    const fishContainer = $('fish');
+    for (let i = 0; i < 7; i++) {
+      const b = document.createElement('button');
+      b.className = 'fish';
+      b.innerHTML = fishArt();
+      b.setAttribute('aria-label', 'Discover silverfin fish');
+      b.style.cssText = `
+        left: ${7 + ((i * 29) % 82)}%;
+        top: ${18 + ((i * 19) % 65)}%;
+        animation-delay: -${(i * 1.2).toFixed(2)}s;
+        opacity: ${0.68 + (i % 3) * 0.15};
+      `;
+      b.onclick = () => {
+        ping();
+        collect(4);
+      };
+      fishContainer.appendChild(b);
+    }
+
+    // Chapter II: Poppable Bubbles
+    const bubblesContainer = $('bubbles');
+    for (let i = 0; i < 16; i++) {
+      const b = document.createElement('button');
+      const size = 20 + (i % 5) * 10;
+      b.className = 'bubble';
+      b.setAttribute('aria-label', 'Pop bubble');
+      b.style.cssText = `
+        left: ${5 + ((i * 37) % 87)}%;
+        top: ${8 + ((i * 23) % 80)}%;
+        width: ${size}px;
+        height: ${size}px;
+        animation-delay: -${(i * 0.4).toFixed(2)}s;
+      `;
+      b.onclick = () => {
+        ping('pop');
+        b.classList.add('popped');
+        setTimeout(() => {
+          b.classList.remove('popped');
+        }, 2200);
+      };
+      bubblesContainer.appendChild(b);
+    }
+
+    // Deep Sea Particles (Chapter II)
+    const particlesContainer = $('particles');
+    for (let i = 0; i < 35; i++) {
+      const p = document.createElement('span');
+      p.className = 'particle';
+      const sz = 2 + (i % 3) * 2;
+      p.style.cssText = `
+        left: ${(i * 37) % 100}%;
+        top: ${(i * 29) % 100}%;
+        width: ${sz}px;
+        height: ${sz}px;
+        animation-delay: -${(i * 0.4).toFixed(2)}s;
+      `;
+      particlesContainer.appendChild(p);
+    }
+
+    // Chapter II Ocean Pearl
+    const pearlEl = $('pearl');
+    if (found.has(3)) pearlEl.style.opacity = '0.4';
+    pearlEl.onclick = () => {
+      ping('pearl');
+      collect(3);
+      pearlEl.style.opacity = '0.4';
+    };
+
+    // ==========================================
+    // CHAPTER III: THE CORAL GARDEN SETUP
+    // ==========================================
+    const cgParticles = $('cg-particles');
+    for (let i = 0; i < 35; i++) {
+      const p = document.createElement('span');
+      p.className = 'cg-particle';
+      p.style.cssText = `
+        left: ${(i * 37) % 100}%;
+        top: ${(i * 29) % 100}%;
+        width: 3px;
+        height: 3px;
+        animation-delay: -${(i * 0.35).toFixed(2)}s;
+      `;
+      cgParticles.appendChild(p);
+    }
+
+    // Sea Turtle Interaction
+    $('cg-turtle').onclick = () => {
+      ping('bell');
+      collect(5);
+    };
+
+    // Hidden Seahorse Interaction
+    const cgHorse = $('cg-horse');
+    if (found.has(6)) cgHorse.style.opacity = '1';
+    cgHorse.onclick = () => {
+      ping('bell');
+      cgHorse.style.opacity = '1';
+      collect(6);
+    };
+
+    // Coral Fish Interaction
+    $('cg-fish').onclick = () => {
+      ping('bell');
+      collect(8);
+    };
+
+    // Garden Pearl Clam Shell Interaction
+    const cgShell = $('cg-shell');
+    cgShell.innerHTML = cgShellSVG(found.has(7));
+    cgShell.onclick = () => {
+      ping('pearl');
+      cgShell.innerHTML = cgShellSVG(true);
+      collect(7);
+    };
+
+    // Feed The Fish Interactive Mechanic
+    const cgFeedBtn = $('cg-feed');
+    cgFeedBtn.onclick = () => {
+      ping('feed');
+      feeds = Math.min(3, feeds + 1);
+      cgFeedBtn.textContent = feeds === 3 ? 'Fish fed! (Collected)' : `Feed the fish: ${feeds}/3`;
+
+      const btnRect = cgFeedBtn.getBoundingClientRect();
+      const cgRect = $('cg').getBoundingClientRect();
+      const originX = btnRect.left - cgRect.left + btnRect.width / 2;
+      const originY = btnRect.top - cgRect.top + btnRect.height / 2;
+
+      for (let i = 0; i < 7; i++) {
+        const pellet = document.createElement('span');
+        pellet.className = 'food-pellet';
+        pellet.style.left = originX + (i - 3) * 6 + 'px';
+        pellet.style.top = originY + 'px';
+        pellet.style.animationDelay = (i * 0.08) + 's';
+        $('cg').appendChild(pellet);
+        setTimeout(() => pellet.remove(), 1500);
+      }
+
+      if (feeds === 3) {
+        collect(8); // Collect Coral Fish
+      }
+    };
+
+    // ========================================================
+    // CHAPTER IV: THE JELLYFISH KINGDOM (GRAB & GUIDE ENGINE)
+    // ========================================================
+    const jellyCreatures = $('jelly-creatures');
+    const jellyDust = $('jelly-dust');
+
+    // Populate Bioluminescent Dust Particles
+    for (let i = 0; i < 45; i++) {
+      const p = document.createElement('span');
+      p.className = 'jelly-dust-particle';
+      p.style.cssText = `
+        left: ${(i * 37) % 100}%;
+        top: ${(i * 29) % 100}%;
+        width: ${2 + (i % 3)}px;
+        height: ${2 + (i % 3)}px;
+        opacity: ${0.2 + (i % 5) * 0.12};
+        animation-delay: -${(i * 0.4).toFixed(2)}s;
+      `;
+      jellyDust.appendChild(p);
+    }
+
+    // Spawn 6 Jellyfish across the kingdom (framing the central composition)
+    const jellyPositions = [
+      [8, 14, 0],   // Moon Jelly (upper-left)
+      [78, 15, 1],  // Azure Jelly (upper-right)
+      [10, 48, 1],  // Azure Jelly (mid-left)
+      [80, 48, 0],  // Moon Jelly (mid-right)
+      [16, 72, 2],  // Rose Jelly (lower-left)
+      [74, 70, 2]   // Rose Jelly (lower-right)
+    ];
+
+    jellyPositions.forEach(([x, y, k], i) => {
+      const b = document.createElement('button');
+      b.className = 'jelly-float';
+      b.style.cssText = `
+        left: ${x}%;
+        top: ${y}%;
+        animation-delay: -${(i * 1.4).toFixed(2)}s;
+        ${i === 4 ? 'width: clamp(60px, 9vw, 120px);' : ''}
+      `;
+      b.innerHTML = jellyArt(k);
+      b.setAttribute('aria-label', 'Illuminate ' + names[9 + k]);
+      b.onclick = () => {
+        ping('jelly');
+        collect(9 + k);
+        b.classList.add('lit');
+        setTimeout(() => b.classList.remove('lit'), 1800);
+      };
+      jellyCreatures.appendChild(b);
+    });
+
+    // Grab & Guide Mechanics with Pointer Events, Pointer Capture & RAF
+    let guide = null;
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const clampVal = (v, min, max) => Math.max(min, Math.min(max, v));
+
+    function updateTargetPos(g, e) {
+      const r = jelly.getBoundingClientRect();
+      g.tx = clampVal(e.clientX - r.left - g.ox, 0, Math.max(0, jelly.clientWidth - g.b.offsetWidth));
+      g.ty = clampVal(e.clientY - r.top - g.oy, 0, Math.max(0, jelly.clientHeight - g.b.offsetHeight));
+    }
+
+    function guideTick() {
+      if (!guide) return;
+      const g = guide;
+      const dx = g.tx - g.x;
+      const dy = g.ty - g.y;
+
+      // Smooth inertia movement
+      const easeFactor = reducedMotion.matches ? 1 : 0.22;
+      g.x += dx * easeFactor;
+      g.y += dy * easeFactor;
+
+      g.b.style.left = g.x + 'px';
+      g.b.style.top = g.y + 'px';
+
+      // Reactive tentacle bend relative to lateral dragging velocity
+      g.b.style.setProperty('--bend', clampVal(-dx * 0.75, -25, 25) + 'deg');
+
+      g.raf = requestAnimationFrame(guideTick);
+    }
+
+    function guideRelease(e) {
+      const g = guide;
+      if (!g || e.pointerId !== g.id) return;
+      guide = null;
+      cancelAnimationFrame(g.raf);
+
+      g.b.classList.remove('guided');
+      g.b.classList.add('released');
+      g.b.style.animationDelay = '0s';
+      g.b.style.removeProperty('--bend');
+
+      // Crucial: Jellyfish resumes swimming freely from its new released position
+      g.b.style.left = (100 * g.x / jelly.clientWidth) + '%';
+      g.b.style.top = (100 * g.y / jelly.clientHeight) + '%';
+
+      if (g.b.hasPointerCapture(g.id)) {
+        g.b.releasePointerCapture(g.id);
+      }
+    }
+
+    document.querySelectorAll('.jelly-float').forEach(b => {
+      b.addEventListener('pointerdown', e => {
+        if (guide || !e.isPrimary || e.button !== 0) return;
+        const r = jelly.getBoundingClientRect();
+        const a = b.getBoundingClientRect();
+        const x = a.left - r.left;
+        const y = a.top - r.top;
+
+        guide = {
+          b,
+          id: e.pointerId,
+          x,
+          y,
+          tx: x,
+          ty: y,
+          ox: e.clientX - a.left,
+          oy: e.clientY - a.top
+        };
+
+        b.classList.remove('released');
+        b.classList.add('guided');
+        b.style.left = x + 'px';
+        b.style.top = y + 'px';
+        b.setPointerCapture(e.pointerId);
+        guideTick();
+      });
+
+      b.addEventListener('pointermove', e => {
+        if (guide?.b === b && guide.id === e.pointerId) {
+          updateTargetPos(guide, e);
+        }
+      });
+
+      for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) {
+        b.addEventListener(type, guideRelease);
+      }
+    });
+
+    // Jellyfish Bioluminescent Pointer Trail
+    let lastJellyTrail = 0;
+    jelly.addEventListener('pointermove', e => {
+      if (reducedMotion.matches || performance.now() - lastJellyTrail < 75) return;
+      lastJellyTrail = performance.now();
+      const r = jelly.getBoundingClientRect();
+      const p = document.createElement('span');
+      p.className = 'jelly-trail';
+      p.textContent = '✧';
+      p.style.left = (e.clientX - r.left) + 'px';
+      p.style.top = (e.clientY - r.top) + 'px';
+      jelly.appendChild(p);
+      setTimeout(() => p.remove(), 1100);
+    });
+
+    // ==========================================
+    // CHAPTER V: THE WHALE SANCTUARY SETUP (500 M)
+    // Playful Whale Escape & Independent Physics Simulation
+    // ==========================================
+    const sanctuary = $('sanctuary');
+    const motherWhale = $('motherWhale');
+    const whaleCalf = $('whaleCalf');
+    motherWhale.innerHTML = whaleArt(false);
+    whaleCalf.innerHTML = whaleArt(true);
+
+    // Mother Whale State (Slow, majestic, grand)
+    let mX = 0, mY = 0;
+    let mTargetX = 0, mTargetY = 0;
+    let mFacing = 1; // 1: left, -1: right
+    let mPitch = 0;
+    let mIsEscaping = false;
+    let mLastBubbleM = 0;
+
+    // Whale Calf State (Agile, playful, nimble)
+    let cX = 0, cY = 0;
+    let cTargetX = 0, cTargetY = 0;
+    let cFacing = 1;
+    let cPitch = 0;
+    let cIsEscaping = false;
+    let cEscapeTimer = null;
+    let mLastBubbleC = 0;
+
+    let isWhaleInit = false;
+    let ambientWanderTimer = null;
+
+    // Safe boundaries helper
+    function getSanctuaryBounds() {
+      const sRect = sanctuary.getBoundingClientRect();
+      const sW = sRect.width || window.innerWidth;
+      const sH = sRect.height || window.innerHeight;
+      const padX = 25;
+      const padY = 35;
+      return {
+        sW, sH,
+        maxMX: Math.max(padX, sW - (motherWhale.offsetWidth || 380) - padX),
+        maxMY: Math.max(padY, sH - (motherWhale.offsetHeight || 180) - padY),
+        maxCX: Math.max(padX, sW - (whaleCalf.offsetWidth || 180) - padX),
+        maxCY: Math.max(padY, sH - (whaleCalf.offsetHeight || 100) - padY),
+        padX, padY
+      };
+    }
+
+    function initWhaleCoordinates() {
+      const b = getSanctuaryBounds();
+      mX = b.sW * 0.20;
+      mY = b.sH * 0.36;
+      mTargetX = mX;
+      mTargetY = mY;
+
+      cX = mX + 130;
+      cY = mY + 110;
+      cTargetX = cX;
+      cTargetY = cY;
+
+      motherWhale.style.left = mX + 'px';
+      motherWhale.style.top = mY + 'px';
+      whaleCalf.style.left = cX + 'px';
+      whaleCalf.style.top = cY + 'px';
+      isWhaleInit = true;
+    }
+
+    // Spawn Underwater Bubble & Bioluminescent Wake Particle
+    function emitWhaleBubble(x, y, isCalf = false) {
+      const b = document.createElement('span');
+      b.className = 'whale-bubble';
+      const size = isCalf ? (4 + Math.random() * 5) : (7 + Math.random() * 8);
+      const drift = (Math.random() - 0.5) * 30;
+      b.style.cssText = `
+        left: ${x}px;
+        top: ${y}px;
+        width: ${size}px;
+        height: ${size}px;
+        --drift-x: ${drift.toFixed(1)}px;
+      `;
+      sanctuary.appendChild(b);
+      setTimeout(() => b.remove(), 1400);
+
+      // Random glowing wake dust
+      if (Math.random() > 0.45) {
+        const w = document.createElement('span');
+        w.className = 'whale-wake';
+        const wSize = isCalf ? (5 + Math.random() * 4) : (8 + Math.random() * 6);
+        w.style.cssText = `
+          left: ${x + (Math.random() - 0.5) * 12}px;
+          top: ${y + (Math.random() - 0.5) * 12}px;
+          width: ${wSize}px;
+          height: ${wSize}px;
+        `;
+        sanctuary.appendChild(w);
+        setTimeout(() => w.remove(), 1300);
+      }
+    }
+
+    // Continuous Fluid Physics Loop
+    function whalePhysicsLoop() {
+      if (!isWhaleInit) initWhaleCoordinates();
+      const b = getSanctuaryBounds();
+
+      // Mother Whale Physics (Slow, majestic: ease = 0.038)
+      const easeM = reducedMotion.matches ? 1 : 0.038;
+      const dX = mTargetX - mX;
+      const dY = mTargetY - mY;
+      mX += dX * easeM;
+      mY += dY * easeM;
+      mX = clampVal(mX, b.padX, b.maxMX);
+      mY = clampVal(mY, b.padY, b.maxMY);
+
+      if (Math.abs(dX) > 2) {
+        mFacing = dX < 0 ? 1 : -1;
+      }
+      mPitch = clampVal((dY * 0.038) * mFacing, -12, 12);
+
+      motherWhale.style.left = mX + 'px';
+      motherWhale.style.top = mY + 'px';
+      motherWhale.style.transform = `scaleX(${mFacing}) rotate(${mPitch.toFixed(2)}deg)`;
+
+      const mSpeed = Math.hypot(dX, dY);
+      if (mSpeed > 14) {
+        motherWhale.classList.add('swimming');
+        const now = performance.now();
+        if (now - mLastBubbleM > 120) {
+          mLastBubbleM = now;
+          const tailX = mFacing === 1 ? (mX + motherWhale.offsetWidth * 0.85) : (mX + motherWhale.offsetWidth * 0.15);
+          const tailY = mY + motherWhale.offsetHeight * 0.52 + (Math.random() - 0.5) * 20;
+          emitWhaleBubble(tailX, tailY, false);
+        }
+      } else {
+        motherWhale.classList.remove('swimming');
+        if (mSpeed < 10) mIsEscaping = false;
+      }
+
+      // Whale Calf Physics (Nimble, agile: ease = 0.082)
+      const easeC = reducedMotion.matches ? 1 : 0.082;
+
+      // If calf is not independently escaping, it loves to school near mother
+      if (!cIsEscaping) {
+        const flankOffset = mFacing === 1
+          ? (motherWhale.offsetWidth * 0.50 + 35)
+          : -(whaleCalf.offsetWidth * 0.55 + 35);
+        cTargetX = clampVal(mX + flankOffset, b.padX, b.maxCX);
+        cTargetY = clampVal(mY + motherWhale.offsetHeight * 0.40, b.padY, b.maxCY);
+      }
+
+      const cdX = cTargetX - cX;
+      const cdY = cTargetY - cY;
+      cX += cdX * easeC;
+      cY += cdY * easeC;
+      cX = clampVal(cX, b.padX, b.maxCX);
+      cY = clampVal(cY, b.padY, b.maxCY);
+
+      // Soft separation repulsion between Mother and Calf so they never uncomfortably overlap
+      const mCenterX = mX + (motherWhale.offsetWidth || 380) / 2;
+      const mCenterY = mY + (motherWhale.offsetHeight || 180) / 2;
+      const cCenterX = cX + (whaleCalf.offsetWidth || 180) / 2;
+      const cCenterY = cY + (whaleCalf.offsetHeight || 100) / 2;
+      const podDist = Math.hypot(cCenterX - mCenterX, cCenterY - mCenterY) || 1;
+      const minPodDist = 125;
+      if (podDist < minPodDist) {
+        const pushForce = (minPodDist - podDist) * 0.06;
+        cX += ((cCenterX - mCenterX) / podDist) * pushForce;
+        cY += ((cCenterY - mCenterY) / podDist) * pushForce;
+        cX = clampVal(cX, b.padX, b.maxCX);
+        cY = clampVal(cY, b.padY, b.maxCY);
+      }
+
+      if (Math.abs(cdX) > 2) {
+        cFacing = cdX < 0 ? 1 : -1;
+      }
+      cPitch = clampVal((cdY * 0.045) * cFacing, -14, 14);
+
+      whaleCalf.style.left = cX + 'px';
+      whaleCalf.style.top = cY + 'px';
+      whaleCalf.style.transform = `scaleX(${cFacing}) rotate(${cPitch.toFixed(2)}deg)`;
+
+      const cSpeed = Math.hypot(cdX, cdY);
+      if (cSpeed > 10) {
+        whaleCalf.classList.add('swimming');
+        const now = performance.now();
+        if (now - mLastBubbleC > 100) {
+          mLastBubbleC = now;
+          const tailX = cFacing === 1 ? (cX + whaleCalf.offsetWidth * 0.85) : (cX + whaleCalf.offsetWidth * 0.15);
+          const tailY = cY + whaleCalf.offsetHeight * 0.5 + (Math.random() - 0.5) * 14;
+          emitWhaleBubble(tailX, tailY, true);
+        }
+      } else {
+        whaleCalf.classList.remove('swimming');
+      }
+
+      requestAnimationFrame(whalePhysicsLoop);
+    }
+    requestAnimationFrame(whalePhysicsLoop);
+
+    // Independent Mother Whale Escape Interaction
+    function handleMotherEscape(e) {
+      if (e) {
+        e.stopPropagation();
+        if (e.cancelable) e.preventDefault();
+      }
+      ping('whale');
+      collect(12); // Discover Mother Whale
+
+      const b = getSanctuaryBounds();
+      const sRect = sanctuary.getBoundingClientRect();
+      const mRect = motherWhale.getBoundingClientRect();
+      const mCenterX = mRect.left - sRect.left + mRect.width / 2;
+      const mCenterY = mRect.top - sRect.top + mRect.height / 2;
+
+      const clickX = (e && typeof e.clientX === 'number') ? (e.clientX - sRect.left) : mCenterX;
+      const clickY = (e && typeof e.clientY === 'number') ? (e.clientY - sRect.top) : mCenterY;
+
+      let awayX = mCenterX - clickX;
+      let awayY = mCenterY - clickY;
+      const dist = Math.hypot(awayX, awayY) || 1;
+      awayX /= dist;
+      awayY /= dist;
+
+      // Natural randomized escape angle (+- 35 deg)
+      const baseAngle = Math.atan2(awayY, awayX);
+      const angle = baseAngle + (Math.random() - 0.5) * 1.2;
+      const travel = 320 + Math.random() * 200;
+
+      let nextX = mX + Math.cos(angle) * travel;
+      let nextY = mY + Math.sin(angle) * travel;
+
+      if (nextX < b.padX) nextX = b.padX + Math.random() * 150;
+      if (nextX > b.maxMX) nextX = b.maxMX - Math.random() * 150;
+      if (nextY < b.padY) nextY = b.padY + Math.random() * 100;
+      if (nextY > b.maxMY) nextY = b.maxMY - Math.random() * 100;
+
+      mTargetX = clampVal(nextX, b.padX, b.maxMX);
+      mTargetY = clampVal(nextY, b.padY, b.maxMY);
+      mIsEscaping = true;
+
+      // Burst of bubbles upon escape start
+      for (let i = 0; i < 5; i++) {
+        setTimeout(() => {
+          emitWhaleBubble(mCenterX + (Math.random() - 0.5) * 60, mCenterY + (Math.random() - 0.5) * 30, false);
+        }, i * 40);
+      }
+
+      toast('The blue whale glides gracefully into the abyss...');
+      scheduleAmbientWander();
+    }
+
+    // Independent Whale Calf Escape Interaction
+    function handleCalfEscape(e) {
+      if (e) {
+        e.stopPropagation();
+        if (e.cancelable) e.preventDefault();
+      }
+      ping('bell');
+      collect(13); // Discover Whale Calf
+
+      const b = getSanctuaryBounds();
+      const sRect = sanctuary.getBoundingClientRect();
+      const cRect = whaleCalf.getBoundingClientRect();
+      const cCenterX = cRect.left - sRect.left + cRect.width / 2;
+      const cCenterY = cRect.top - sRect.top + cRect.height / 2;
+
+      const clickX = (e && typeof e.clientX === 'number') ? (e.clientX - sRect.left) : cCenterX;
+      const clickY = (e && typeof e.clientY === 'number') ? (e.clientY - sRect.top) : cCenterY;
+
+      let awayX = cCenterX - clickX;
+      let awayY = cCenterY - clickY;
+      const dist = Math.hypot(awayX, awayY) || 1;
+      awayX /= dist;
+      awayY /= dist;
+
+      // Playful agile escape angle (+- 45 deg)
+      const baseAngle = Math.atan2(awayY, awayX);
+      const angle = baseAngle + (Math.random() - 0.5) * 1.5;
+      const travel = 220 + Math.random() * 180;
+
+      let nextX = cX + Math.cos(angle) * travel;
+      let nextY = cY + Math.sin(angle) * travel;
+
+      if (nextX < b.padX) nextX = b.padX + Math.random() * 120;
+      if (nextX > b.maxCX) nextX = b.maxCX - Math.random() * 120;
+      if (nextY < b.padY) nextY = b.padY + Math.random() * 80;
+      if (nextY > b.maxCY) nextY = b.maxCY - Math.random() * 80;
+
+      cTargetX = clampVal(nextX, b.padX, b.maxCX);
+      cTargetY = clampVal(nextY, b.padY, b.maxCY);
+      cIsEscaping = true;
+
+      clearTimeout(cEscapeTimer);
+      cEscapeTimer = setTimeout(() => {
+        cIsEscaping = false;
+      }, 3800);
+
+      // Playful flurry of bubbles
+      for (let i = 0; i < 4; i++) {
+        setTimeout(() => {
+          emitWhaleBubble(cCenterX + (Math.random() - 0.5) * 35, cCenterY + (Math.random() - 0.5) * 20, true);
+        }, i * 35);
+      }
+
+      toast('Whale Calf darts playfully through the deep!');
+    }
+
+    // Attach independent Pointer & Click Listeners for robust Mouse & Touch support
+    motherWhale.addEventListener('pointerdown', handleMotherEscape);
+    whaleCalf.addEventListener('pointerdown', handleCalfEscape);
+
+    // Ambient Random Wander (when idle)
+    function scheduleAmbientWander() {
+      clearTimeout(ambientWanderTimer);
+      const delay = 9000 + Math.random() * 6000; // 9 to 15 seconds
+      ambientWanderTimer = setTimeout(() => {
+        const b = getSanctuaryBounds();
+        const wanderAngle = Math.random() * Math.PI * 2;
+        const wanderDist = 140 + Math.random() * 180;
+        const nextX = clampVal(mX + Math.cos(wanderAngle) * wanderDist, b.padX, b.maxMX);
+        const nextY = clampVal(mY + Math.sin(wanderAngle) * wanderDist, b.padY, b.maxMY);
+
+        mTargetX = nextX;
+        mTargetY = nextY;
+        scheduleAmbientWander();
+      }, delay);
+    }
+    scheduleAmbientWander();
+
+    // Populate Interactive Luminous Plankton in Chapter V
+    const whaleDust = $('whale-dust');
+    for (let i = 0; i < 28; i++) {
+      const b = document.createElement('button');
+      b.className = 'whale-dust';
+      b.setAttribute('aria-label', 'Discover luminous plankton');
+      const sz = 3 + (i % 4) * 2;
+      b.style.cssText = `
+        left: ${4 + ((i * 37) % 92)}%;
+        top: ${6 + ((i * 29) % 86)}%;
+        width: ${sz}px;
+        height: ${sz}px;
+        animation-delay: -${(i * 0.35).toFixed(2)}s;
+      `;
+      b.onclick = () => {
+        ping('sparkle');
+        collect(14); // Discover Luminous Plankton
+        b.style.transform = 'scale(2.8)';
+        b.style.opacity = '0';
+        setTimeout(() => {
+          b.style.opacity = '1';
+          b.style.transform = 'scale(1)';
+        }, 3500);
+      };
+      whaleDust.appendChild(b);
+    }
+
+    // Whale Song Button Interaction
+    const whaleCallBtn = $('whaleCallBtn');
+    whaleCallBtn.onclick = () => {
+      if (!sound) {
+        sound = true;
+        $('sound').textContent = '♪ ON';
+        $('sound').setAttribute('aria-pressed', 'true');
+      }
+      ping('whale');
+      toast('A song reverberates through the abyss...');
+    };
+
+    // Bioluminescent Plankton Trail on Sanctuary
+    let lastSanctuaryTrail = 0;
+    sanctuary.addEventListener('pointermove', e => {
+      if (reducedMotion.matches || performance.now() - lastSanctuaryTrail < 75) return;
+      lastSanctuaryTrail = performance.now();
+      const r = sanctuary.getBoundingClientRect();
+      const p = document.createElement('span');
+      p.className = 'sanctuary-trail';
+      p.textContent = '✧';
+      p.style.left = (e.clientX - r.left) + 'px';
+      p.style.top = (e.clientY - r.top) + 'px';
+      sanctuary.appendChild(p);
+      setTimeout(() => p.remove(), 1100);
+    });
+
+    // ==========================================
+    // CHAPTER VI: THE LOST TREASURE (1,000 M)
+    // ==========================================
+    const treasureSec = $('treasure');
+
+    // Mini-game: 3 Hidden Antique Keys, Moveable Ancient Rock & Treasure Chest
+    (() => {
+      const objects = $('treasureObjects');
+      const chest = $('treasureChest');
+      const statusEl = $('treasureStatus');
+      const endEl = $('treasureEnd');
+
+      let keys = new Set();
+      try {
+        keys = new Set(
+          JSON.parse(localStorage.getItem('oceanverse-keys') || '[]').filter(
+            k => [0, 1, 2].includes(k)
+          )
+        );
+      } catch (e) {
+        console.warn('Keys storage error:', e);
+      }
+
+      function updateTreasure() {
+        const isCompleted = found.has(15);
+        if ($('treasureKeysHud')) {
+          $('treasureKeysHud').textContent = `KEYS · ${keys.size}/3`;
+        }
+        if (isCompleted) {
+          statusEl.textContent = "THE OCEAN'S HEART IS YOURS";
+          chest.innerHTML = chestArt(true);
+          endEl.hidden = false;
+        } else if (keys.size === 3) {
+          statusEl.textContent = 'ALL KEYS FOUND · OPEN THE CHEST';
+          chest.innerHTML = chestArt(false);
+          endEl.hidden = true;
+        } else {
+          statusEl.textContent = 'FIND THE THREE LOST KEYS';
+          chest.innerHTML = chestArt(false);
+          endEl.hidden = true;
+        }
+      }
+
+      // Three Key Coordinates: [left%, top%] exactly matching screenshot
+      const keyCoords = [
+        [15, 49], // Key on the left
+        [76, 50], // Key covered by rock on the right
+        [73, 76]  // Key on the bottom right
+      ];
+
+      keyCoords.forEach(([kx, ky], idx) => {
+        const keyBtn = document.createElement('button');
+        keyBtn.className = 'treasure-key';
+        keyBtn.style.left = kx + '%';
+        keyBtn.style.top = ky + '%';
+        keyBtn.innerHTML = keyArt;
+        keyBtn.setAttribute('aria-label', `Collect ancient key ${idx + 1} of 3`);
+        keyBtn.hidden = keys.has(idx);
+
+        keyBtn.onclick = () => {
+          if (keys.has(idx)) return;
+          keys.add(idx);
+          try {
+            localStorage.setItem('oceanverse-keys', JSON.stringify([...keys]));
+          } catch (e) {}
+
+          keyBtn.style.transform = 'scale(1.3)';
+          keyBtn.style.opacity = '0';
+          ping('key');
+          setTimeout(() => {
+            keyBtn.hidden = true;
+          }, 250);
+
+          if (keys.size === 3) {
+            toast('All three antique keys assembled! The chest can now be opened.');
+          } else {
+            toast(`Antique key discovered! (${keys.size}/3)`);
+          }
+          updateTreasure();
+        };
+
+        objects.appendChild(keyBtn);
+
+        // Shiftable ancient rock covering Key 1
+        if (idx === 1) {
+          const rockBtn = document.createElement('button');
+          rockBtn.className = 'treasure-rock';
+          rockBtn.style.left = (kx - 4) + '%';
+          rockBtn.style.top = (ky - 2) + '%';
+          rockBtn.innerHTML = rockArt;
+          rockBtn.setAttribute('aria-label', 'Move ancient rock to reveal hidden key');
+
+          if (keys.has(1)) {
+            rockBtn.classList.add('moved');
+          } else {
+            let drag = null;
+            let moved = false;
+
+            function finishSlide() {
+              if (moved) return;
+              moved = true;
+              rockBtn.classList.add('moved');
+              ping('rock');
+              toast('Ancient rock moved! A golden key glints beneath.');
+            }
+
+            rockBtn.addEventListener('pointerdown', e => {
+              if (moved || e.button !== 0) return;
+              drag = {
+                id: e.pointerId,
+                startX: e.clientX,
+                startY: e.clientY
+              };
+              rockBtn.setPointerCapture(e.pointerId);
+            });
+
+            rockBtn.addEventListener('pointermove', e => {
+              if (!drag || drag.id !== e.pointerId || moved) return;
+              const dx = e.clientX - drag.startX;
+              const dy = e.clientY - drag.startY;
+              rockBtn.style.transform = `translate(${Math.max(-100, Math.min(100, dx))}px, ${Math.max(-40, Math.min(80, dy))}px)`;
+              if (dx < -40 || dy > 25) {
+                finishSlide();
+              }
+            });
+
+            function endPointer(e) {
+              if (!drag || drag.id !== e.pointerId) return;
+              drag = null;
+              if (rockBtn.hasPointerCapture(e.pointerId)) {
+                rockBtn.releasePointerCapture(e.pointerId);
+              }
+              finishSlide();
+            }
+
+            rockBtn.addEventListener('pointerup', endPointer);
+            rockBtn.addEventListener('pointercancel', endPointer);
+            rockBtn.addEventListener('click', () => {
+              finishSlide();
+            });
+          }
+
+          objects.appendChild(rockBtn);
+        }
+      });
+
+      // Chest click interaction
+      chest.onclick = () => {
+        if (!found.has(15)) {
+          if (keys.size < 3) {
+            chest.classList.add('rattle');
+            ping('rock');
+            toast('Find all three keys first');
+            setTimeout(() => {
+              chest.classList.remove('rattle');
+            }, 550);
+            return;
+          }
+
+          // Unlock chest & reveal Ocean's Heart
+          collect(15);
+          ping('treasure');
+          updateTreasure();
+
+          // Spawn radiant golden sparks
+          const count = 36;
+          for (let i = 0; i < count; i++) {
+            const spark = document.createElement('span');
+            spark.className = 'gold-spark';
+            spark.textContent = '✧';
+            const dx = Math.cos(i) * (70 + i * 4);
+            const dy = Math.sin(i) * (70 + i * 4);
+            spark.style.cssText = `
+              left: 50%;
+              top: 60%;
+              --dx: ${dx.toFixed(1)}px;
+              --dy: ${dy.toFixed(1)}px;
+            `;
+            treasureSec.appendChild(spark);
+            setTimeout(() => spark.remove(), 1900);
+          }
+          toast("Ocean's Heart discovered! Your journey is complete.");
+        } else {
+          toast("Ocean's Heart glows peacefully in the chest.");
+          ping('pearl');
+        }
+      };
+
+      // Navigation actions in completion panel
+      $('treasureJournalBtn').onclick = () => {
+        ping();
+        journal();
+        journalDialog.showModal();
+      };
+
+      $('treasureHomeBtn').onclick = () => {
+        ping();
+        world.scrollIntoView({
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'
+        });
+      };
+
+      updateTreasure();
+    })();
+
+    // ==========================================
+    // UNIFIED SCROLL CONTROLLER & HUD MONITOR
+    // ==========================================
+    let pendingScroll = false;
+    function handleScroll() {
+      pendingScroll = false;
+      const scrollY = window.scrollY;
+      const innerH = window.innerHeight;
+      const blueRect = $('blue').getBoundingClientRect();
+      const cgRect = $('cg').getBoundingClientRect();
+      const jellyRect = jelly.getBoundingClientRect();
+      const sanctuaryRect = sanctuary.getBoundingClientRect();
+      const treasureRect = $('treasure').getBoundingClientRect();
+
+      // Dynamic Depth & Header Color Calibration
+      if (treasureRect.top <= innerH * 0.5) {
+        $('depth').textContent = 'THE LOST TREASURE: 1,000 M';
+        $('depth').style.color = '#f6e8c8';
+        $('mainHeader').style.color = '#f6e8c8';
+        $('count').style.color = '#123e5e';
+      } else if (sanctuaryRect.top <= innerH * 0.5) {
+        $('depth').textContent = 'THE WHALE SANCTUARY: 500 M';
+        $('depth').style.color = '#e4f5ff';
+        $('mainHeader').style.color = '#e4f5ff';
+        $('count').style.color = '#123e5e';
+      } else if (jellyRect.top <= innerH * 0.5) {
+        $('depth').textContent = 'THE JELLYFISH KINGDOM: 200 M';
+        $('depth').style.color = '#eef3ff';
+        $('mainHeader').style.color = '#eef3ff';
+        $('count').style.color = '#123e5e';
+      } else if (cgRect.top <= innerH * 0.5) {
+        $('depth').textContent = 'THE CORAL GARDEN: 30 M';
+        $('depth').style.color = '#effaff';
+        $('mainHeader').style.color = '#effaff';
+        $('count').style.color = '#123e5e';
+      } else if (blueRect.top <= innerH * 0.5) {
+        $('depth').textContent = 'INTO THE BLUE: 10 M';
+        $('depth').style.color = '#ffffff';
+        $('mainHeader').style.color = '#ffffff';
+        $('count').style.color = '#123e5e';
+      } else {
+        const descentProgress = Math.min(1, Math.max(0, scrollY / (innerH * 0.85)));
+        const depthM = Math.round(descentProgress * 10);
+        $('depth').textContent = `THE SHORE: ${String(depthM).padStart(2, '0')} M`;
+        $('depth').style.color = 'var(--color-text-shore)';
+        $('mainHeader').style.color = 'var(--color-text-shore)';
+        $('count').style.color = 'var(--color-text-shore)';
+      }
+
+      if (reducedMotion.matches) return;
+
+      // God rays tilt & underwater parallax shift
+      const p = Math.max(-1, Math.min(1, blueRect.top / innerH));
+      $('rays').style.transform = `translateY(${p * 35}px) rotate(${p * 4}deg)`;
+
+      // Shore hero fade out & translateY
+      const t = Math.max(0, Math.min(1, scrollY / innerH));
+      const heroEl = world.querySelector('.hero');
+      if (heroEl) {
+        heroEl.style.opacity = String(1 - t * 0.85);
+        heroEl.style.transform = `translateY(${t * 55}px)`;
+      }
+
+      // Smooth seabed parallax on scroll (Coral Garden)
+      const cgProgress = (innerH - cgRect.top) / (innerH + cgRect.height);
+      if (cgProgress >= 0 && cgProgress <= 1) {
+        const offset = (cgProgress - 0.5) * 45;
+        $('coralRowBack').style.transform = `translateY(${offset * -0.5}px)`;
+        $('coralRowFront').style.transform = `translateY(${offset * -0.9}px)`;
+      }
+
+      // Subtle ruins backdrop parallax
+      const treasureProgress = (innerH - treasureRect.top) / (innerH + treasureRect.height);
+      if (treasureProgress >= 0 && treasureProgress <= 1) {
+        const trOffset = (treasureProgress - 0.5) * 35;
+        const ruinsBg = document.querySelector('.ruins');
+        if (ruinsBg) ruinsBg.style.transform = `translateY(${trOffset * -0.4}px)`;
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!pendingScroll) {
+        pendingScroll = true;
+        requestAnimationFrame(handleScroll);
+      }
+    }, { passive: true });
+    handleScroll();
+
+    // Cursor Sparkle Trail (Shore only)
+    let lastTrailTime = 0;
+    world.addEventListener('pointermove', e => {
+      if (performance.now() - lastTrailTime < 65) return;
+      lastTrailTime = performance.now();
+      const r = world.getBoundingClientRect();
+      const s = document.createElement('span');
+      s.className = 'trail';
+      s.textContent = '✧';
+      s.style.left = e.clientX - r.left + 'px';
+      s.style.top = e.clientY - r.top + 'px';
+      world.appendChild(s);
+      setTimeout(() => s.remove(), 1200);
+    });
+  </script>
+</body>
+</html>
